@@ -30,7 +30,7 @@
 <!-- ABOUT THE PROJECT -->
 # About The Project
 
-Habit TRacker
+Habit Tracker
 
 ### Remote Hosting
 The site is hosted [here] on Netlify
