@@ -1,0 +1,122 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    font-family: helvetica, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  border-bottom: #006AE8 3px solid;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 50vh;
+}
+
+main .login-frame {
+  width: 60vw;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+main .login-header {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+main .login-main {
+  display: grid;
+  row-gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "name-label name-label"
+    "name-row name-row"
+    "pass-label pass-label"
+    "pass-row pass-row"
+    "signup-btn login-btn";
+}
+
+.text-input {
+    padding: .5em .25em;
+    height:1.75rem;
+}
+
+#name-label {
+  grid-area: name-label;
+}
+
+#pass-label {
+  grid-area: pass-label;
+}
+
+#name-input {
+  justify-self: start;
+  width: 100%;
+  grid-area: name-row;
+}
+
+#pass-input {
+  justify-self: start;
+  width: 100%;
+  grid-area: pass-row;
+  margin-bottom:1rem;
+}
+.signup-btn {
+  justify-self: start;
+  grid-area: signup-btn;
+}
+.login-btn {
+  justify-self: end;
+  grid-area: login-btn;
+}
+
+/* *** Button Styling *** */
+
+.btn {
+  align-items: center;
+  appearance: button;
+  background-color: #0276FF;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-family: "RM Neue",sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  padding: 10px 21px;
+  text-align: center;
+  text-transform: none;
+  transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:active {
+  background-color: #006AE8;
+}
+
+.btn:hover {
+  background-color: #1C84FF;
+}
