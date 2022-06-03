@@ -27,7 +27,8 @@ main {
 }
 
 main .login-frame {
-  width: 60vw;
+  width: 95vw;
+  max-width: 550px;
   border: 2px solid black;
   border-radius: 10px;
   padding: 2rem;
