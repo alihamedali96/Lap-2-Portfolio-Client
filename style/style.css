@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@600&family=Kadwa&family=Kreon:wght@700&display=swap');
+
 *,
 *::before,
 *::after {
@@ -6,16 +8,71 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg-color: #210357;
+  --bg-color-2: #310c75;
+  --sh-color: #321d57;
+  --dom-color: #5109d7;
+  --subdom-color: #3d07a3;
+  --light-color: #734Bdd;
+  --light-yellow: #ffe69c;
+  --green-color: #1ed63e;
+  --accent: #f5c025;
+  --accent-warm: #f57c25;
+}
+
 body {
-    font-family: helvetica, sans-serif;
+    background: var(--bg-color);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+/* *** Font Stuff *** */
+
+body {
+  color: var(--light-yellow);
+  text-shadow: 3px 3px var(--sh-color);
+  font-family: 'Kreon', serif;
+  font-size: 1.1rem;
+}
+
+h1, h2 {
+  font-family: 'Baloo Paaji 2', cursive;
+  /* line-height: 1; */
+}
+
+h1{
+  font-size: 72px;
+  color: var(--accent)
+  /* gradient text, messes up text shadows
+  background: -webkit-linear-gradient(var(--accent),var(--accent),var(--accent),var(--accent-warm),#fff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  */
+  
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+h3 {
+  font-family: 'Kadwa', serif;
+}
+
+
+.text-input {
+    font-family: 'Kreon', serif;
+    color:var(--dom-color);
+    font-size: 1.1rem;
 }
 
 header {
+  background: linear-gradient(180deg,#3D07A3 0%,#4708BE 75%,var(--dom-color)100%);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 10vh;
-  border-bottom: #006AE8 3px solid;
+  border-bottom: var(--light-color) 4px solid;
 }
 
 main {
@@ -23,15 +80,18 @@ main {
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 50vh;
+  height: auto;
 }
 
 main .login-frame {
+  margin-top:7vh;
   width: 95vw;
   max-width: 550px;
-  border: 2px solid black;
-  border-radius: 10px;
+  background: var(--subdom-color);
+  border: 3px solid var(--light-color);
+  border-radius: 15px;
   padding: 2rem;
+  box-shadow: 11px 11px 22px 5px rgba(17, 17, 17, 0.35);
 }
 
 main .login-header {
@@ -53,9 +113,18 @@ main .login-main {
 }
 
 .text-input {
-    padding: .5em .25em;
+    padding: 1em .5em ;
     height:1.75rem;
+    background: var(--light-yellow);
+    border:none;
+    border-radius:5px;
+    box-shadow: 3px 3px var(--sh-color);
+    caret-color: var(--dom-color);
 }
+
+.text-input:focus{
+ outline: solid 2px var(--green-color);
+ }
 
 #name-label {
   grid-area: name-label;
@@ -66,43 +135,63 @@ main .login-main {
 }
 
 #name-input {
+  width:100%;
   justify-self: start;
-  width: 100%;
   grid-area: name-row;
 }
 
 #pass-input {
+  width:100%;
   justify-self: start;
-  width: 100%;
   grid-area: pass-row;
-  margin-bottom:1rem;
+  margin-bottom:1.75rem;
 }
 .signup-btn {
   justify-self: start;
   grid-area: signup-btn;
 }
 .login-btn {
-  justify-self: end;
+  justify-self: center;
+  
   grid-area: login-btn;
 }
 
 /* *** Button Styling *** */
 
+.btn-1{
+  background-color: var(--green-color);
+  color: var(--bg-color);
+}
+
+.btn-2{
+  background-color: var(--light-color);
+  color: var(--light-yellow);
+
+}
+
+.btn:hover {
+  background-color: var(--accent);
+  color: var(--bg-color);
+}
+
+.btn:active {
+  background-color: var(--accent-warm);
+  color: var(--bg-color);
+}
+
 .btn {
+  width: 14vw;
+  min-width: 150px;
+  max-width: 50%;
   align-items: center;
   appearance: button;
-  background-color: #0276FF;
   border-radius: 8px;
   border-style: none;
-  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  box-shadow: var(--sh-color) 2px 2px 2px;
   box-sizing: border-box;
-  color: #fff;
   cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  flex-shrink: 0;
-  font-family: "RM Neue",sans-serif;
-  font-size: 100%;
+  font-family: 'Baloo Paaji 2', serif;
+  font-size: 110%;
   line-height: 1.15;
   margin: 0;
   padding: 10px 21px;
@@ -114,10 +203,4 @@ main .login-main {
   touch-action: manipulation;
 }
 
-.btn:active {
-  background-color: #006AE8;
-}
 
-.btn:hover {
-  background-color: #1C84FF;
-}
