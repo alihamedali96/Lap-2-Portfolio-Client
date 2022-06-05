@@ -69,6 +69,9 @@ h3 {
 label {
   font-family: 'Kreon', serif;
 }
+h2{
+  color: var(--accent)
+}
 
 .text-input {
     font-family: 'Kreon', serif;
