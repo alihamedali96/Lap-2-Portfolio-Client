@@ -21,27 +21,34 @@
   --accent-warm: #f57c25;
 }
 
+html, body {
+  width: 100vw;
+  height:100vh;
+  /* overflow:hidden; */
+}
+
 body {
     background: var(--bg-color);
     background-repeat: no-repeat;
     background-attachment: fixed;
+
 }
 /* *** Font Stuff *** */
 
-body {
-  color: var(--light-yellow);
-  text-shadow: 3px 3px var(--sh-color);
-  font-family: 'Kreon', serif;
-  font-size: 1.1rem;
-}
 
 h1, h2 {
   font-family: 'Baloo Paaji 2', cursive;
-  /* line-height: 1; */
+  line-height: 1;
+}
+body {
+  color: var(--light-yellow);
+  text-shadow: 3px 3px var(--sh-color);
+  font-size: 1.1rem;
 }
 
 h1{
   font-size: 72px;
+  text-transform: uppercase;
   color: var(--accent)
   /* gradient text, messes up text shadows
   background: -webkit-linear-gradient(var(--accent),var(--accent),var(--accent),var(--accent-warm),#fff);
@@ -59,12 +66,18 @@ h3 {
   font-family: 'Kadwa', serif;
 }
 
+label {
+  font-family: 'Kreon', serif;
+}
 
 .text-input {
     font-family: 'Kreon', serif;
+    letter-spacing: 0.05em;
     color:var(--dom-color);
     font-size: 1.1rem;
-}
+    }
+
+/* header */
 
 header {
   background: linear-gradient(180deg,#3D07A3 0%,#4708BE 75%,var(--dom-color)100%);
@@ -74,6 +87,8 @@ header {
   height: 10vh;
   border-bottom: var(--light-color) 4px solid;
 }
+
+/* main bit */
 
 main {
   display: flex;
@@ -85,8 +100,8 @@ main {
 
 main .login-frame {
   margin-top:7vh;
-  width: 95vw;
-  max-width: 550px;
+  width: 65vw;
+  max-width: 600px;
   background: var(--subdom-color);
   border: 3px solid var(--light-color);
   border-radius: 15px;
@@ -95,6 +110,7 @@ main .login-frame {
 }
 
 main .login-header {
+  width:100%;
   text-align: center;
   margin: 1rem 0;
 }
@@ -102,7 +118,7 @@ main .login-header {
 main .login-main {
   display: grid;
   row-gap: 0.5rem;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-rows: auto;
   grid-template-areas:
     "name-label name-label"
@@ -123,7 +139,7 @@ main .login-main {
 }
 
 .text-input:focus{
- outline: solid 2px var(--green-color);
+ outline: solid 3px var(--light-color);
  }
 
 #name-label {
@@ -142,17 +158,18 @@ main .login-main {
 
 #pass-input {
   width:100%;
-  justify-self: start;
+  justify-self: end;
   grid-area: pass-row;
   margin-bottom:1.75rem;
+  
+
 }
 .signup-btn {
   justify-self: start;
   grid-area: signup-btn;
 }
 .login-btn {
-  justify-self: center;
-  
+  justify-self: end;
   grid-area: login-btn;
 }
 
@@ -204,3 +221,38 @@ main .login-main {
 }
 
 
+@media only screen and (max-width: 720px){ 
+
+  main .login-frame{
+    margin:2vw;
+    width:95vw;
+  }
+
+  main .login-main {
+    display: grid;
+    row-gap: 0.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "name-label"
+      "name-row"
+      "pass-label"
+      "pass-row"
+      "login-btn"
+      "signup-btn"; 
+  }
+
+  input, .btn{
+    justify-self: center;
+    width:100%;
+    min-width:100%;
+    max-width:100%;
+  }
+
+  .signup-btn {
+    grid-area: signup-btn;
+  }
+  .login-btn {
+    grid-area: login-btn;
+  }
+}
