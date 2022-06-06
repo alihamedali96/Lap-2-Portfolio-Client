@@ -1,31 +1,39 @@
 const sendNewUser = require("./requests");
 
 const mainFrame = document.getElementById("mainframe");
-// render Home page
+
+// Reset hash and homepage content
 function resetMainFrame() {
   window.location.hash = "";
   mainFrame.innerHTML = "";
 }
+
+// render Home page
 function renderHome() {
-  // Reset hash and homepage content
   resetMainFrame();
 
-  /// Create elements layout
+  /// Create Text Elements and layout
   const homeContainer = document.createElement("div");
   homeContainer.className = "main-frame";
   const homeTitle = document.createElement("h2");
   homeTitle.textContent = "Crush your goals";
   const homeText = document.createElement("h3");
   homeText.textContent = "Login to start now!";
+
+  // Login Button
   const loginButton = document.createElement("button");
   loginButton.id = "login";
   loginButton.textContent = "Login";
+  loginButton.className = "btn";
   loginButton.addEventListener("click", (e) => {
     renderLogin(e);
   });
+
+  // Sign up button
   const signupButton = document.createElement("button");
   signupButton.id = "signup";
   signupButton.textContent = "Sign Up Here";
+  signupButton.className = "btn";
   signupButton.addEventListener("click", (e) => {
     renderSignup(e);
   });
@@ -37,16 +45,30 @@ function renderHome() {
 // make render reg form
 function renderLogin(e) {
   e.preventDefault();
-  // Reset hash and homepage content
   resetMainFrame();
 
+  const loginframe = document.createElement("div");
+  loginframe.className = "login-frame";
+
+  const loginHeader = document.createElement("div");
+  loginHeader.className = "login-header";
+
+  const loginMain = document.createElement("div");
+  loginMain.className = "login-main";
+
+  const loginTitle = document.createElement("h2");
+  loginTitle.textContent = "It is your time to find a Roo-tine";
+  const loginText = document.createElement("h3");
+  loginText.textContent = "Please fill in your details below";
+
+  loginHeader.append(loginTitle, loginText);
   // Set up form with fields
   const fields = [
     {
       tag: "label",
       attribute: {
         for: "username",
-        id: "username:",
+        id: "username",
         class: "label",
       },
     },
@@ -57,13 +79,14 @@ function renderLogin(e) {
         name: "username",
         placeholder: "Enter a username",
         class: "text-input",
+        id: "name-input",
       },
     },
     {
       tag: "label",
       attribute: {
         for: "password",
-        id: "password:",
+        id: "password",
         class: "label",
       },
     },
@@ -74,6 +97,7 @@ function renderLogin(e) {
         name: "password",
         placeholder: "Enter a password",
         class: "text-input",
+        id: "pass-input",
       },
     },
     {
@@ -98,7 +122,8 @@ function renderLogin(e) {
     },
   ];
   const form = document.createElement("form");
-  form.id = "login-Form";
+
+  form.id = "loginForm";
   //   form.class = "login-frame";
   fields.forEach((f) => {
     let field = document.createElement(f.tag);
@@ -118,20 +143,20 @@ function renderLogin(e) {
         field.textContent = label;
       }
 
-      form.appendChild(field);
+      loginMain.appendChild(field);
     });
   });
-
+  form.append(loginHeader, loginMain);
   form.addEventListener("submit", (e) => {
     e.preventDefault();
   });
-  mainFrame.appendChild(form);
+  loginframe.appendChild(form);
+  mainFrame.appendChild(loginframe);
 }
 
 // make render login form
 function renderSignup(e) {
   e.preventDefault();
-  // Reset hash and homepage content
   resetMainFrame();
 
   // Set up form with fields

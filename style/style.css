@@ -32,7 +32,9 @@ main {
   border: 2px solid black;
   border-radius: 10px;
   padding: 2rem;
-  height: 300px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
 }
 
 main .login-frame {
@@ -66,11 +68,11 @@ main .login-main {
   height: 1.75rem;
 }
 
-#name-label {
+#username {
   grid-area: name-label;
 }
 
-#pass-label {
+#password {
   grid-area: pass-label;
 }
 
@@ -86,7 +88,7 @@ main .login-main {
   grid-area: pass-row;
   margin-bottom: 1rem;
 }
-.signup-btn {
+#login-back {
   justify-self: start;
   grid-area: signup-btn;
 }
