@@ -1,5 +1,5 @@
 const sendNewUser = require("./auth");
-
+const requestLogin = require("./auth");
 const mainFrame = document.getElementById("mainframe");
 
 // Reset hash and homepage content
@@ -148,9 +148,7 @@ function renderLogin(e) {
     });
   });
   form.append(loginHeader, loginMain);
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-  });
+  form.addEventListener("submit", requestLogin);
   loginframe.appendChild(form);
   mainFrame.appendChild(loginframe);
 }

@@ -1,5 +1,6 @@
 async function sendNewUser(e) {
   e.preventDefault();
+  console.log(e);
   try {
     const options = {
       method: "POST",
@@ -7,10 +8,9 @@ async function sendNewUser(e) {
       body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
     };
     // Clearing inputs
-    const textbox = document.getElementsByClassName("text-input");
-    for (let i = 0; i < textbox.length; i++) {
-      textbox[i].value = "";
-    }
+    console.log(options);
+    clearInputs();
+
     // const response = await fetch("http://localhost:3000/users", options);
     // const data = await response.json();
   } catch (err) {
@@ -20,6 +20,25 @@ async function sendNewUser(e) {
 
 async function requestLogin(e) {
   e.preventDefault(e);
+  try {
+    const options = {
+      method: "POST",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(e.targer))),
+    };
+    console.log(options);
+    clearInputs();
+  } catch (err) {
+    console.log(err);
+  }
 }
 
+function clearInputs() {
+  const textbox = document.getElementsByClassName("text-input");
+  console.log(textbox);
+  for (let i = 0; i < textbox.length; i++) {
+    textbox[i].value = "";
+  }
+}
 module.exports = sendNewUser;
+module.exports = requestLogin;
