@@ -32,7 +32,7 @@ function renderHome() {
   // Sign up button
   const signupButton = document.createElement("button");
   signupButton.id = "signup";
-  signupButton.textContent = "Sign Up Here";
+  signupButton.textContent = "Sign Up";
   signupButton.className = "btn";
   signupButton.addEventListener("click", (e) => {
     renderSignup(e);
@@ -57,9 +57,9 @@ function renderLogin(e) {
   loginMain.className = "login-main";
 
   const loginTitle = document.createElement("h2");
-  loginTitle.textContent = "It is your time to find a Roo-tine";
+  loginTitle.textContent = "Welcome back to your Roo-tine";
   const loginText = document.createElement("h3");
-  loginText.textContent = "Please fill in your details below";
+  loginText.textContent = "Please login in";
 
   loginHeader.append(loginTitle, loginText);
   // Set up form with fields
@@ -159,6 +159,21 @@ function renderSignup(e) {
   e.preventDefault();
   resetMainFrame();
 
+  const signupframe = document.createElement("div");
+  signupframe.className = "signup-frame";
+
+  const signupHeader = document.createElement("div");
+  signupHeader.className = "signup-header";
+
+  const signupMain = document.createElement("div");
+  signupMain.className = "signup-main";
+
+  const signupTitle = document.createElement("h2");
+  signupTitle.textContent = "It is your time to find a Roo-tine";
+  const signupText = document.createElement("h3");
+  signupText.textContent = "Please fill in your details below";
+
+  signupHeader.append(signupTitle, signupText);
   // Set up form with fields
   const fields = [
     {
@@ -271,12 +286,14 @@ function renderSignup(e) {
         field.textContent = label;
       }
 
-      form.appendChild(field);
+      signupMain.appendChild(field);
     });
   });
 
+  form.append(signupHeader, signupMain);
   form.addEventListener("submit", sendNewUser);
-  mainFrame.appendChild(form);
+  signupframe.appendChild(form);
+  mainFrame.appendChild(signupframe);
 }
 
 // Back button on either login/logout

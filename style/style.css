@@ -32,13 +32,31 @@ main {
   border: 2px solid black;
   border-radius: 10px;
   padding: 2rem;
-  height: 350px;
+  height: 400px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+}
+.main-frame > h2,
+.main-frame > h3 {
+  flex-basis: 100%;
+  text-align: center;
+}
+.main-frame > h3 {
+  margin-bottom: 3rem;
+  font-size: 22px;
+}
+
+.main-frame > button {
+  height: 40px;
+  width: 110px;
+  justify-content: center;
+  margin: 1rem;
 }
 
 main .login-frame {
   width: 95vw;
+
   max-width: 550px;
   border: 2px solid black;
   border-radius: 10px;
@@ -95,6 +113,39 @@ main .login-main {
 .login-btn {
   justify-self: end;
   grid-area: login-btn;
+}
+
+.signup-frame {
+  width: 95vw;
+  max-width: 550px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.signup-header {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.signup-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.label {
+  flex-basis: 40%;
+}
+.text-input {
+  flex-basis: 50%;
+}
+
+.signup-main > input {
+  margin: 5px;
+}
+.signup-main > label {
+  margin: 5px;
 }
 
 /* *** Button Styling *** */
