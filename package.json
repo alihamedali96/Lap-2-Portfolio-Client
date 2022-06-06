@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll",
+    "coverage": "jest --coverage",
+    "bundle": "browserify ./js/script.js > ./js/bundle.js",
+    "dev": "concurrently \"watchify ./js/script.js -o ./js/bundle.js\" \"http-server\""
   },
   "repository": {
     "type": "git",
