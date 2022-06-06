@@ -33,8 +33,8 @@
 Habit Tracker
 
 ### Remote Hosting
-The site is hosted [here] on Netlify
-and our API is hosted [here] on Heroku.
+The client side user interface is hosted [here](https://roo-teen.netlify.app/) on Netlify
+and Server side API is hosted [here](https://rooteen.herokuapp.com/) on Heroku.
 
 
 ---
@@ -76,16 +76,11 @@ and our API is hosted [here] on Heroku.
 ### API's
 - [Heroku](https://www.heroku.com/)
 
-
-
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- FUCNTIONALITY -->
 ---
 ## Functionality
-
-
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -100,18 +95,11 @@ and our API is hosted [here] on Heroku.
 # Installation and Usage
 Please follow instructions on installing and setting up this app. 
 
-
- 
 Test:
 
 - Run tests with `npm test` and check coverage with `npm run coverage`.
 
-
-
-
-
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 ---
 <!-- CONTACT/CONTRIBUTORS -->
