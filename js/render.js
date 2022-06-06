@@ -46,6 +46,7 @@ function renderHome() {
 function renderLogin(e) {
   e.preventDefault();
   resetMainFrame();
+  window.location.hash = "login";
 
   const loginframe = document.createElement("div");
   loginframe.className = "login-frame";
@@ -158,6 +159,7 @@ function renderLogin(e) {
 function renderSignup(e) {
   e.preventDefault();
   resetMainFrame();
+  window.location.hash = "register";
 
   const signupframe = document.createElement("div");
   signupframe.className = "signup-frame";
@@ -306,4 +308,4 @@ document.addEventListener("click", function (e) {
   }
 });
 
-module.exports = { renderHome, renderSignup };
+module.exports = { renderHome, renderSignup, renderLogin };
