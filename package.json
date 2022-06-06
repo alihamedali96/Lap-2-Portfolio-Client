@@ -1,0 +1,32 @@
+{
+  "name": "lap-2-portfolio-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alihamedali96/Lap-2-Portfolio-Client.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alihamedali96/Lap-2-Portfolio-Client/issues"
+  },
+  "homepage": "https://github.com/alihamedali96/Lap-2-Portfolio-Client#readme",
+  "devDependencies": {
+    "concurrently": "^7.2.1",
+    "http-server": "^14.1.1",
+    "jest": "^28.1.0",
+    "supertest": "^6.2.3",
+    "watchify": "^4.0.0"
+  },
+  "dependencies": {
+    "0d": "^0.0.1",
+    "cors": "^2.8.5",
+    "jest-environment-jsdom": "^28.1.0"
+  }
+}
