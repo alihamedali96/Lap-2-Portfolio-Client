@@ -21,15 +21,16 @@
   },
   "homepage": "https://github.com/alihamedali96/Lap-2-Portfolio-Client#readme",
   "devDependencies": {
+    "browserify": "^17.0.0",
     "concurrently": "^7.2.1",
     "http-server": "^14.1.1",
     "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "supertest": "^6.2.3",
     "watchify": "^4.0.0"
   },
   "dependencies": {
     "0d": "^0.0.1",
-    "cors": "^2.8.5",
-    "jest-environment-jsdom": "^28.1.0"
+    "cors": "^2.8.5"
   }
 }
