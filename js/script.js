@@ -2,7 +2,8 @@
 // const loginForm = document.getElementById("loginForm");
 const mainFrame = document.getElementById("mainframe");
 document.addEventListener("DOMContentLoaded", (e) => {
-  renderHome();
+  renderHome(e);
+  console.log(mainFrame);
 });
 // registerButton.addEventListener("click", navigateRegForm);
 // loginButton.addEventListener("click", navigateRegForm);
@@ -13,18 +14,35 @@ function renderHome() {
   const homeContainer = document.createElement("div");
   homeContainer.className = "main-frame";
   const homeTitle = document.createElement("h2");
+  homeTitle.textContent = "Crush your goals";
   const homeText = document.createElement("h3");
-  const loginButton = document.createElement("btn");
+  homeText.textContent = "Login to start now!";
+  const loginButton = document.createElement("button");
   loginButton.id = "login";
-  const signupButton = document.createElement("btn");
+  loginButton.textContent = "Login";
+  loginButton.addEventListener("click", (e) => {
+    renderLogin(e);
+  });
+  const signupButton = document.createElement("button");
   signupButton.id = "signup";
+  signupButton.textContent = "Sign Up Here";
+  signupButton.addEventListener("click", (e) => {
+    renderSignup(e);
+  });
 
   homeContainer.append(homeTitle, homeText, loginButton, signupButton);
+  console.log(homeContainer);
   mainFrame.append(homeContainer);
 }
 // make render reg form
-
+function renderLogin(e) {
+  e.preventDefault();
+}
 // make render login form
+function renderSignup(e) {
+  e.preventDefault();
+}
+
 function navigateRegForm() {
   window.location.hash = `register`;
   console.log(window.location);
