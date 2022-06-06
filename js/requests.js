@@ -1,22 +1,10 @@
-async function sendNewUser(e) {
-  e.preventDefault();
-  const signupContainer = document.getElementsByClassName("signup-frame");
-  console.log(signupContainer);
-
+async function getAllHabits() {
   try {
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
-    };
-    console.log(options);
-    // const response = await fetch("http://localhost:3000/users", options);
-    // const data = await response.json();
-    console.log(signupContainer);
-    signupContainer.innerHTML = "";
+    const response = await fetch("https://rooteen.herokuapp.com/");
+    const data = await response.json();
+    return data;
   } catch (err) {
-    console.log(err);
+    console.warn(err);
   }
 }
-
-module.exports = sendNewUser;
+module.exports = getAllHabits;
