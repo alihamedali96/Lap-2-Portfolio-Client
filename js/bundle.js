@@ -12,8 +12,9 @@ async function sendNewUser(e) {
     console.log(options);
     clearInputs();
 
-    // const response = await fetch("http://localhost:3000/users", options);
-    // const data = await response.json();
+    const response = await fetch("http://localhost:3000/users", options);
+    const data = await response.json();
+    return data;
   } catch (err) {
     console.log(err);
   }
