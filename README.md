@@ -74,12 +74,14 @@ and our API is hosted [here] on Heroku.
 
 - [Jest](https://jestjs.io/)
 - [Supertest](https://github.com/visionmedia/supertest)
+- [jsdom](https://jestjs.io/docs/tutorial-jquery)
 
 ### Development
 
 - [Nodemon](https://www.npmjs.com/package/nodemon)
 - [Watchify](https://www.npmjs.com/package/watchify)
 - [Concurrently](https://www.npmjs.com/package/concurrently)
+- [Browserfy](https://www.npmjs.com/package/browserify)
 
 ### API's
 
@@ -109,6 +111,9 @@ and our API is hosted [here] on Heroku.
 # Installation and Usage
 
 Please follow instructions on installing and setting up this app.
+
+1. Fork or clone the repo and move into the folder
+2. In the commandline run the following script to launch the server `npm run dev`
 
 Test:
 

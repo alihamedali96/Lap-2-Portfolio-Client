@@ -25,7 +25,7 @@ async function requestLogin(e) {
     const options = {
       method: "POST",
       headers: { "content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(new FormData(e.targer))),
+      body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
     };
     console.log(options);
     clearInputs();
