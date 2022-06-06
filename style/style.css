@@ -26,6 +26,9 @@ main {
   height: 50vh;
 }
 
+.main-frame {
+}
+
 main .login-frame {
   width: 95vw;
   max-width: 550px;
