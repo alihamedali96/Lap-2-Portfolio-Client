@@ -1,5 +1,5 @@
-const sendNewUser = require("./requests");
-
+const sendNewUser = require("./auth");
+const requestLogin = require("./auth");
 const mainFrame = document.getElementById("mainframe");
 
 // Reset hash and homepage content
@@ -148,9 +148,7 @@ function renderLogin(e) {
     });
   });
   form.append(loginHeader, loginMain);
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-  });
+  form.addEventListener("submit", requestLogin);
   loginframe.appendChild(form);
   mainFrame.appendChild(loginframe);
 }
@@ -249,21 +247,21 @@ function renderSignup(e) {
     {
       tag: "input",
       attribute: {
-        type: "submit",
-        name: "submit",
-        value: "Create User",
-        class: "signup-btn btn",
-      },
-    },
-    {
-      tag: "input",
-      attribute: {
         type: "button",
         name: "back",
         title: "Go Back",
         value: "Go Back",
         class: "Back-btn btn",
         id: "signup-back",
+      },
+    },
+    {
+      tag: "input",
+      attribute: {
+        type: "submit",
+        name: "submit",
+        value: "Create User",
+        class: "signup-btn btn",
       },
     },
   ];

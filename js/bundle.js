@@ -1,6 +1,52 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-const sendNewUser = require("./requests");
+async function sendNewUser(e) {
+  e.preventDefault();
+  console.log(e);
+  try {
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
+    };
+    // Clearing inputs
+    console.log(options);
+    clearInputs();
 
+    // const response = await fetch("http://localhost:3000/users", options);
+    // const data = await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function requestLogin(e) {
+  e.preventDefault(e);
+  try {
+    const options = {
+      method: "POST",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(e.targer))),
+    };
+    console.log(options);
+    clearInputs();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function clearInputs() {
+  const textbox = document.getElementsByClassName("text-input");
+  console.log(textbox);
+  for (let i = 0; i < textbox.length; i++) {
+    textbox[i].value = "";
+  }
+}
+module.exports = sendNewUser;
+module.exports = requestLogin;
+
+},{}],2:[function(require,module,exports){
+const sendNewUser = require("./auth");
+const requestLogin = require("./auth");
 const mainFrame = document.getElementById("mainframe");
 
 // Reset hash and homepage content
@@ -149,9 +195,7 @@ function renderLogin(e) {
     });
   });
   form.append(loginHeader, loginMain);
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-  });
+  form.addEventListener("submit", requestLogin);
   loginframe.appendChild(form);
   mainFrame.appendChild(loginframe);
 }
@@ -250,21 +294,21 @@ function renderSignup(e) {
     {
       tag: "input",
       attribute: {
-        type: "submit",
-        name: "submit",
-        value: "Create User",
-        class: "signup-btn btn",
-      },
-    },
-    {
-      tag: "input",
-      attribute: {
         type: "button",
         name: "back",
         title: "Go Back",
         value: "Go Back",
         class: "Back-btn btn",
         id: "signup-back",
+      },
+    },
+    {
+      tag: "input",
+      attribute: {
+        type: "submit",
+        name: "submit",
+        value: "Create User",
+        class: "signup-btn btn",
       },
     },
   ];
@@ -311,35 +355,11 @@ document.addEventListener("click", function (e) {
 
 module.exports = { renderHome, renderSignup, renderLogin };
 
-},{"./requests":2}],2:[function(require,module,exports){
-async function sendNewUser(e) {
-  e.preventDefault();
-  const signupContainer = document.getElementsByClassName("signup-frame");
-  console.log(signupContainer);
-
-  try {
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
-    };
-    console.log(options);
-    // const response = await fetch("http://localhost:3000/users", options);
-    // const data = await response.json();
-    console.log(signupContainer);
-    signupContainer.innerHTML = "";
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-module.exports = sendNewUser;
-
-},{}],3:[function(require,module,exports){
+},{"./auth":1}],3:[function(require,module,exports){
 const render = require("./render");
 
 document.addEventListener("DOMContentLoaded", (e) => {
   render.renderHome(e);
 });
 
-},{"./render":1}]},{},[3]);
+},{"./render":2}]},{},[3]);
