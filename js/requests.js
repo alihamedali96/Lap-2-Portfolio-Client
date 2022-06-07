@@ -1,6 +1,8 @@
+const API_URL = require("./url");
+
 async function getAllHabits() {
   try {
-    const response = await fetch("https://rooteen.herokuapp.com/");
+    const response = await fetch(`${API_URL}/habits`);
     const data = await response.json();
     return data;
   } catch (err) {

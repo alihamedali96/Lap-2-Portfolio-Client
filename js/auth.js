@@ -1,3 +1,5 @@
+const API_URL = require("./url");
+console.log(API_URL);
 async function sendNewUser(e) {
   e.preventDefault();
   console.log(e);
@@ -11,8 +13,9 @@ async function sendNewUser(e) {
     console.log(options);
     clearInputs();
 
-    const response = await fetch("http://localhost:3000/users", options);
+    const response = await fetch(`${API_URL}/users`, options);
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (err) {
     console.log(err);

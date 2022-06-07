@@ -4,7 +4,7 @@ const renderDOM = require("./helpers");
 let dom;
 let document;
 
-describe("index.html", () => {
+describe("index.js", () => {
   beforeEach(async () => {
     dom = await renderDOM("index.html");
     document = await dom.window.document;
