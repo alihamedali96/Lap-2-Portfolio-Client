@@ -1,7 +1,9 @@
 const auth = require("./auth")
 const requestLogin = auth.requestLogin;
 const newUser = auth.newUser;
+
 const getAllHabits = require("./requests");
+
 const mainFrame = document.getElementById("mainframe");
 
 // Reset hash and homepage content
