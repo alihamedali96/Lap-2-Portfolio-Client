@@ -3,7 +3,6 @@ const API_URL = require("./url");
 
 async function newUser(e) {
   e.preventDefault();
-  console.log(e);
   console.log(JSON.stringify(Object.fromEntries(new FormData(e.target))));
   try {
     const options = {
@@ -12,11 +11,8 @@ async function newUser(e) {
       body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
     };
 
-    console.log(options);
-
     const response = await fetch(`${API_URL}/users`, options);
     const data = await response.json();
-    console.log(data);
     // Clearing inputs
     clearInputs();
     return data;
@@ -63,8 +59,9 @@ const mainFrame = document.getElementById("mainframe");
 
 // Reset hash and homepage content
 function resetMainFrame() {
-  window.location.hash = "";
-  mainFrame.innerHTML = "";
+  while (mainFrame.firstChild) {
+    mainFrame.removeChild(mainFrame.lastChild);
+  }
 }
 
 // render Home page
@@ -84,18 +81,14 @@ function renderHome() {
   loginButton.id = "login";
   loginButton.textContent = "Login";
   loginButton.className = "btn";
-  loginButton.addEventListener("click", (e) => {
-    renderLogin(e);
-  });
+  loginButton.addEventListener("click", renderLogin);
 
   // Sign up button
   const signupButton = document.createElement("button");
   signupButton.id = "signup";
   signupButton.textContent = "Sign Up";
   signupButton.className = "btn";
-  signupButton.addEventListener("click", (e) => {
-    renderSignup(e);
-  });
+  signupButton.addEventListener("click", renderSignup);
   // Append elements for homepage
   homeContainer.append(homeTitle, homeText, loginButton, signupButton);
   mainFrame.append(homeContainer);
@@ -105,7 +98,7 @@ function renderHome() {
 function renderLogin(e) {
   e.preventDefault();
   resetMainFrame();
-  window.location.hash = "login";
+  // window.location.hash = "login";
 
   const loginframe = document.createElement("div");
   loginframe.className = "login-frame";
@@ -216,7 +209,7 @@ function renderLogin(e) {
 function renderSignup(e) {
   e.preventDefault();
   resetMainFrame();
-  window.location.hash = "register";
+  // window.location.hash = "register";
 
   const signupframe = document.createElement("div");
   signupframe.className = "signup-frame";
@@ -338,6 +331,7 @@ function renderSignup(e) {
         name: "submit",
         value: "Create User",
         class: "signup-btn btn",
+        id: "signup-btn",
       },
     },
   ];
@@ -427,6 +421,13 @@ function openHabitModal(e) {
 
 // Back button on either login/logout
 document.addEventListener("click", function (e) {
+  if (
+    (e.target && e.target.id == "signup-back") ||
+    (e.target && e.target.id == "login-back")
+  ) {
+    renderHome();
+  }
+
   if (
     (e.target && e.target.id == "signup-back") ||
     (e.target && e.target.id == "login-back")

@@ -2,7 +2,6 @@ const API_URL = require("./url");
 
 async function newUser(e) {
   e.preventDefault();
-  console.log(e);
   console.log(JSON.stringify(Object.fromEntries(new FormData(e.target))));
   try {
     const options = {
@@ -11,11 +10,8 @@ async function newUser(e) {
       body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
     };
 
-    console.log(options);
-
     const response = await fetch(`${API_URL}/users`, options);
     const data = await response.json();
-    console.log(data);
     // Clearing inputs
     clearInputs();
     return data;
