@@ -238,6 +238,23 @@ function renderSignup(e) {
     {
       tag: "label",
       attribute: {
+        for: "name",
+        id: "name:",
+        class: "label",
+      },
+    },
+    {
+      tag: "input",
+      attribute: {
+        type: "text",
+        name: "name",
+        placeholder: "Enter your name",
+        class: "text-input",
+      },
+    },
+    {
+      tag: "label",
+      attribute: {
         for: "username",
         id: "username:",
         class: "label",
@@ -286,23 +303,23 @@ function renderSignup(e) {
         class: "text-input",
       },
     },
-    {
-      tag: "label",
-      attribute: {
-        for: "passwordConfirmation",
-        id: "password!confirmation:",
-        class: "label",
-      },
-    },
-    {
-      tag: "input",
-      attribute: {
-        type: "password",
-        name: "passwordConfirmation",
-        placeholder: "Enter your password again",
-        class: "text-input",
-      },
-    },
+    // {
+    //   tag: "label",
+    //   attribute: {
+    //     for: "passwordConfirmation",
+    //     id: "password!confirmation:",
+    //     class: "label",
+    //   },
+    // },
+    // {
+    //   tag: "input",
+    //   attribute: {
+    //     type: "password",
+    //     name: "passwordConfirmation",
+    //     placeholder: "Enter your password again",
+    //     class: "text-input",
+    //   },
+    // },
     {
       tag: "input",
       attribute: {
