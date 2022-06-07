@@ -9,11 +9,11 @@ async function sendNewUser(e) {
       body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
     };
     // Clearing inputs
-    console.log(options);
-    clearInputs();
-
+    
     const response = await fetch("http://localhost:3000/users", options);
     const data = await response.json();
+    console.log(options);
+    clearInputs();
     return data;
   } catch (err) {
     console.log(err);
