@@ -1,5 +1,6 @@
-const sendNewUser = require("./auth");
+const newUser = require("./auth");
 const requestLogin = require("./auth");
+const getAllHabits = require("./requests");
 const mainFrame = document.getElementById("mainframe");
 
 // Reset hash and homepage content
@@ -291,9 +292,47 @@ function renderSignup(e) {
   });
 
   form.append(signupHeader, signupMain);
-  form.addEventListener("submit", sendNewUser);
+  form.addEventListener("submit", newUser);
   signupframe.appendChild(form);
   mainFrame.appendChild(signupframe);
+}
+
+async function renderFeed(e) {
+  ////////////////////////////// Create Div with Create Button/Logoutbutton
+  const feed = document.createElement("div");
+  feed.id = "feed";
+
+  ////////////////////////////// Listing all the Habits
+  // An array of habits
+  const habits = await getAllHabits();
+  // Write a func which with create a card for each habit
+  const renderHabits = (habitData) => {
+    //Create
+    const card = document.createElement("div");
+    card.className = "habit-card";
+    const symbol = document.createElement("img");
+    symbol.className = "habit-icon";
+    const textContainer = document.createElement("div");
+    textContainer.className = "habit-text-container";
+    const habitTitle = document.createElement("h3");
+    habitTitle.className = "habit-title";
+    habitTitle.textContent = habitData.habit_name;
+    const habitFreq = document.createElement("p");
+    habitFreq.className = "habit-freq";
+    habitFreq.textContent = habitData.frequency;
+    const habitCheck = document.createElement("input");
+    habitCheck.className = "habit-checkbox";
+    habitCheck.id = `habit-${habitData.id}`;
+    habitCheck.setAttribute("type", "checkbox");
+
+    //Append
+    textContainer.append(habitTitle, habitFreq);
+    card.append(symbol, textContainer, habitCheck);
+    feed.appendChild(card);
+  };
+
+  habits.forEach(renderHabits);
+  main.appendChild(feed);
 }
 
 // Back button on either login/logout

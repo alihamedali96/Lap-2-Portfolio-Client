@@ -1,21 +1,24 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const API_URL = require("./url");
-console.log(API_URL);
-async function sendNewUser(e) {
+
+async function newUser(e) {
   e.preventDefault();
   console.log(e);
+  console.log(JSON.stringify(Object.fromEntries(new FormData(e.target))));
   try {
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
     };
-    // Clearing inputs
-    console.log(options);
-    clearInputs();
 
-    const response = await fetch("http://localhost:3000/users", options);
+    console.log(options);
+
+    const response = await fetch(`${API_URL}/users`, options);
     const data = await response.json();
+    console.log(data);
+    // Clearing inputs
+    clearInputs();
     return data;
   } catch (err) {
     console.log(err);
@@ -24,6 +27,7 @@ async function sendNewUser(e) {
 
 async function requestLogin(e) {
   e.preventDefault(e);
+  console.log("hello from login");
   try {
     const options = {
       method: "POST",
@@ -32,6 +36,9 @@ async function requestLogin(e) {
     };
     console.log(options);
     clearInputs();
+    const response = await fetch(`${API_URL}/users`, options);
+    const data = await response.json();
+    console.log(data);
   } catch (err) {
     console.log(err);
   }
@@ -44,12 +51,14 @@ function clearInputs() {
     textbox[i].value = "";
   }
 }
-module.exports = sendNewUser;
-module.exports = requestLogin;
 
-},{"./url":4}],2:[function(require,module,exports){
-const sendNewUser = require("./auth");
+module.exports = requestLogin;
+module.exports = newUser;
+
+},{"./url":5}],2:[function(require,module,exports){
+const newUser = require("./auth");
 const requestLogin = require("./auth");
+const getAllHabits = require("./requests");
 const mainFrame = document.getElementById("mainframe");
 
 // Reset hash and homepage content
@@ -341,9 +350,47 @@ function renderSignup(e) {
   });
 
   form.append(signupHeader, signupMain);
-  form.addEventListener("submit", sendNewUser);
+  form.addEventListener("submit", newUser);
   signupframe.appendChild(form);
   mainFrame.appendChild(signupframe);
+}
+
+async function renderFeed(e) {
+  ////////////////////////////// Create Div with Create Button/Logoutbutton
+  const feed = document.createElement("div");
+  feed.id = "feed";
+
+  ////////////////////////////// Listing all the Habits
+  // An array of habits
+  const habits = await getAllHabits();
+  // Write a func which with create a card for each habit
+  const renderHabits = (habitData) => {
+    //Create
+    const card = document.createElement("div");
+    card.className = "habit-card";
+    const symbol = document.createElement("img");
+    symbol.className = "habit-icon";
+    const textContainer = document.createElement("div");
+    textContainer.className = "habit-text-container";
+    const habitTitle = document.createElement("h3");
+    habitTitle.className = "habit-title";
+    habitTitle.textContent = habitData.habit_name;
+    const habitFreq = document.createElement("p");
+    habitFreq.className = "habit-freq";
+    habitFreq.textContent = habitData.frequency;
+    const habitCheck = document.createElement("input");
+    habitCheck.className = "habit-checkbox";
+    habitCheck.id = `habit-${habitData.id}`;
+    habitCheck.setAttribute("type", "checkbox");
+
+    //Append
+    textContainer.append(habitTitle, habitFreq);
+    card.append(symbol, textContainer, habitCheck);
+    feed.appendChild(card);
+  };
+
+  habits.forEach(renderHabits);
+  main.appendChild(feed);
 }
 
 // Back button on either login/logout
@@ -358,7 +405,21 @@ document.addEventListener("click", function (e) {
 
 module.exports = { renderHome, renderSignup, renderLogin };
 
-},{"./auth":1}],3:[function(require,module,exports){
+},{"./auth":1,"./requests":3}],3:[function(require,module,exports){
+const API_URL = require("./url");
+
+async function getAllHabits() {
+  try {
+    const response = await fetch(`${API_URL}/habits`);
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.warn(err);
+  }
+}
+module.exports = getAllHabits;
+
+},{"./url":5}],4:[function(require,module,exports){
 const render = require("./render");
 const auth = require("./auth");
 
@@ -366,7 +427,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
   render.renderHome(e);
 });
 
-},{"./auth":1,"./render":2}],4:[function(require,module,exports){
-module.exports = "https://rooteen.herokuapp.com/";
+},{"./auth":1,"./render":2}],5:[function(require,module,exports){
+module.exports = "https://rooteen.herokuapp.com";
 
-},{}]},{},[3]);
+},{}]},{},[4]);

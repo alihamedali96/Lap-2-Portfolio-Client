@@ -1,21 +1,23 @@
 const API_URL = require("./url");
-console.log(API_URL);
-async function sendNewUser(e) {
+
+async function newUser(e) {
   e.preventDefault();
   console.log(e);
+  console.log(JSON.stringify(Object.fromEntries(new FormData(e.target))));
   try {
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
     };
-    // Clearing inputs
+
     console.log(options);
-    clearInputs();
 
     const response = await fetch(`${API_URL}/users`, options);
     const data = await response.json();
     console.log(data);
+    // Clearing inputs
+    clearInputs();
     return data;
   } catch (err) {
     console.log(err);
@@ -24,6 +26,7 @@ async function sendNewUser(e) {
 
 async function requestLogin(e) {
   e.preventDefault(e);
+  console.log("hello from login");
   try {
     const options = {
       method: "POST",
@@ -32,6 +35,9 @@ async function requestLogin(e) {
     };
     console.log(options);
     clearInputs();
+    const response = await fetch(`${API_URL}/users`, options);
+    const data = await response.json();
+    console.log(data);
   } catch (err) {
     console.log(err);
   }
@@ -44,5 +50,6 @@ function clearInputs() {
     textbox[i].value = "";
   }
 }
-module.exports = sendNewUser;
+
 module.exports = requestLogin;
+module.exports = newUser;
