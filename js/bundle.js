@@ -359,6 +359,16 @@ async function renderFeed(e) {
   ////////////////////////////// Create Div with Create Button/Logoutbutton
   const feed = document.createElement("div");
   feed.id = "feed";
+  const header = document.createElement("div");
+  header.className = "feed-header";
+  const title = document.createElement("h1");
+  title.className = "feed-title";
+  title.textContent = `Welcome back ${localStorage.getItem("username")}!}`;
+  const createButton = document.createElement("button");
+  createButton.className = "btn";
+  createButton.id = "create-btn";
+  createButton.value = "New Habit";
+  createButton.addEventListener("click", openHabitModal);
 
   ////////////////////////////// Listing all the Habits
   // An array of habits
@@ -386,11 +396,16 @@ async function renderFeed(e) {
     //Append
     textContainer.append(habitTitle, habitFreq);
     card.append(symbol, textContainer, habitCheck);
-    feed.appendChild(card);
+    header.append(title, createButton);
+    feed.append(header, card);
   };
 
   habits.forEach(renderHabits);
   main.appendChild(feed);
+}
+
+function openHabitModal(e) {
+  e.preventDefault();
 }
 
 // Back button on either login/logout
