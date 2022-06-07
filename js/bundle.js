@@ -1,6 +1,25 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const API_URL = require("./url");
 
+async function requestLogin(e) {
+  e.preventDefault(e);
+  console.log("hello from login");
+  try {
+    const options = {
+      method: "POST",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
+    };
+    console.log(options);
+    clearInputs();
+    const response = await fetch(`${API_URL}/users`, options);
+    const data = await response.json();
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 async function newUser(e) {
   e.preventDefault();
   console.log(JSON.stringify(Object.fromEntries(new FormData(e.target))));
@@ -21,25 +40,6 @@ async function newUser(e) {
   }
 }
 
-async function requestLogin(e) {
-  e.preventDefault(e);
-  console.log("hello from login");
-  try {
-    const options = {
-      method: "POST",
-      headers: { "content-Type": "application/json" },
-      body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
-    };
-    console.log(options);
-    clearInputs();
-    const response = await fetch(`${API_URL}/users`, options);
-    const data = await response.json();
-    console.log(data);
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 function clearInputs() {
   const textbox = document.getElementsByClassName("text-input");
   console.log(textbox);
@@ -48,12 +48,15 @@ function clearInputs() {
   }
 }
 
-module.exports = requestLogin;
-module.exports = newUser;
+module.exports = { 
+  requestLogin,
+  newUser
+}
 
 },{"./url":5}],2:[function(require,module,exports){
-const newUser = require("./auth");
-const requestLogin = require("./auth");
+const auth = require("./auth")
+const requestLogin = auth.requestLogin;
+const newUser = auth.newUser;
 const getAllHabits = require("./requests");
 const mainFrame = document.getElementById("mainframe");
 
@@ -62,10 +65,13 @@ function resetMainFrame() {
   while (mainFrame.firstChild) {
     mainFrame.removeChild(mainFrame.lastChild);
   }
+  console.log("elements destroyed")
 }
 
+// ==================================================================
 // render Home page
 function renderHome() {
+  console.log('rendering home');
   resetMainFrame();
 
   /// Create Text Elements and layout
@@ -89,126 +95,22 @@ function renderHome() {
   signupButton.textContent = "Sign Up";
   signupButton.className = "btn";
   signupButton.addEventListener("click", renderSignup);
+
   // Append elements for homepage
   homeContainer.append(homeTitle, homeText, loginButton, signupButton);
   mainFrame.append(homeContainer);
 }
 
-// make render reg form
-function renderLogin(e) {
-  e.preventDefault();
-  resetMainFrame();
-  // window.location.hash = "login";
-
-  const loginframe = document.createElement("div");
-  loginframe.className = "login-frame";
-
-  const loginHeader = document.createElement("div");
-  loginHeader.className = "login-header";
-
-  const loginMain = document.createElement("div");
-  loginMain.className = "login-main";
-
-  const loginTitle = document.createElement("h2");
-  loginTitle.textContent = "Welcome back to your Roo-tine";
-  const loginText = document.createElement("h3");
-  loginText.textContent = "Please login in";
-
-  loginHeader.append(loginTitle, loginText);
-  // Set up form with fields
-  const fields = [
-    {
-      tag: "label",
-      attribute: {
-        for: "username",
-        id: "username",
-        class: "label",
-      },
-    },
-    {
-      tag: "input",
-      attribute: {
-        type: "text",
-        name: "username",
-        placeholder: "Enter a username",
-        class: "text-input",
-        id: "name-input",
-      },
-    },
-    {
-      tag: "label",
-      attribute: {
-        for: "password",
-        id: "password",
-        class: "label",
-      },
-    },
-    {
-      tag: "input",
-      attribute: {
-        type: "password",
-        name: "password",
-        placeholder: "Enter a password",
-        class: "text-input",
-        id: "pass-input",
-      },
-    },
-    {
-      tag: "input",
-      attribute: {
-        type: "submit",
-        name: "submit",
-        value: "Login",
-        class: "login-btn btn",
-      },
-    },
-    {
-      tag: "input",
-      attribute: {
-        type: "button",
-        name: "back",
-        title: "Go Back",
-        value: "Go Back",
-        class: "Back-btn btn",
-        id: "login-back",
-      },
-    },
-  ];
-  const form = document.createElement("form");
-
-  form.id = "loginForm";
-  //   form.class = "login-frame";
-  fields.forEach((f) => {
-    let field = document.createElement(f.tag);
-
-    Object.entries(f.attribute).forEach(([a, v]) => {
-      field.setAttribute(a, v);
-      let words = field.id.split("!");
-      // getting each word capitlaised
-      if (field.id) {
-        for (let i = 0; i < words.length; i++) {
-          words[i] = words[i][0].toUpperCase() + words[i].substring(1);
-        }
-      }
-      // set textcontent of label to the id we modified
-      const label = words.join(" ");
-      if (field.id) {
-        field.textContent = label;
-      }
-
-      loginMain.appendChild(field);
-    });
-  });
-  form.append(loginHeader, loginMain);
-  form.addEventListener("submit", requestLogin);
-  loginframe.appendChild(form);
-  mainFrame.appendChild(loginframe);
-}
-
+// ==================================================================
 // make render login form
-function renderSignup(e) {
-  e.preventDefault();
+function renderSignup() {
+  console.log("rendering signup page")
   resetMainFrame();
+  try {
+    if(form){console.log("form still exists",form)}
+  } catch (err){
+    console.error(err)
+  }
   // window.location.hash = "register";
 
   const signupframe = document.createElement("div");
@@ -227,7 +129,7 @@ function renderSignup(e) {
 
   signupHeader.append(signupTitle, signupText);
   // Set up form with fields
-  const fields = [
+  const signupFields = [
     {
       tag: "label",
       attribute: {
@@ -296,6 +198,26 @@ function renderSignup(e) {
         class: "text-input",
       },
     },
+    {
+      tag: "input",
+      attribute: {
+        type: "button",
+        name: "back",
+        title: "Go Back",
+        value: "Go Back",
+        class: "Back-btn btn",
+        id: "signup-back",
+      },
+    },
+    {
+      tag: "input",
+      attribute: {
+        type: "submit",
+        value: "Create User",
+        class: "signup-btn btn",
+        id: "signup-btn",
+      },
+    },
     // {
     //   tag: "label",
     //   attribute: {
@@ -313,32 +235,13 @@ function renderSignup(e) {
     //     class: "text-input",
     //   },
     // },
-    {
-      tag: "input",
-      attribute: {
-        type: "button",
-        name: "back",
-        title: "Go Back",
-        value: "Go Back",
-        class: "Back-btn btn",
-        id: "signup-back",
-      },
-    },
-    {
-      tag: "input",
-      attribute: {
-        type: "submit",
-        name: "submit",
-        value: "Create User",
-        class: "signup-btn btn",
-        id: "signup-btn",
-      },
-    },
   ];
   const form = document.createElement("form");
+
   form.id = "registerForm";
   form.class = "login-frame";
-  fields.forEach((f) => {
+
+  signupFields.forEach((f) => {
     let field = document.createElement(f.tag);
 
     Object.entries(f.attribute).forEach(([a, v]) => {
@@ -360,12 +263,137 @@ function renderSignup(e) {
     });
   });
 
+  // *** Submit New User Button ***
   form.append(signupHeader, signupMain);
-  form.addEventListener("submit", newUser);
+  form.onsubmit='null'
+  form.addEventListener("submit", newUser); // Adds newUser event to form onsubmit
   signupframe.appendChild(form);
   mainFrame.appendChild(signupframe);
-}
+  console.log(console.log(document.querySelectorAll("form")))
 
+} // end of form
+
+// ==================================================================
+// make render reg form
+function renderLogin() {
+  console.log("rendering login page")
+  resetMainFrame();
+  // window.location.hash = "login";
+
+  const loginframe = document.createElement("div");
+  loginframe.className = "login-frame";
+
+  const loginHeader = document.createElement("div");
+  loginHeader.className = "login-header";
+
+  const loginMain = document.createElement("div");
+  loginMain.className = "login-main";
+
+  const loginTitle = document.createElement("h2");
+  loginTitle.textContent = "Welcome back to your Roo-tine";
+  const loginText = document.createElement("h3");
+  loginText.textContent = "Please login in";
+
+  loginHeader.append(loginTitle, loginText);
+  // Set up form with fields
+  const loginFields = [
+    {
+      tag: "label",
+      attribute: {
+        for: "username",
+        id: "username",
+        class: "label",
+      },
+    },
+    {
+      tag: "input",
+      attribute: {
+        type: "text",
+        name: "username",
+        placeholder: "Enter a username",
+        class: "text-input",
+        id: "name-input",
+      },
+    },
+    {
+      tag: "label",
+      attribute: {
+        for: "password",
+        id: "password",
+        class: "label",
+      },
+    },
+    {
+      tag: "input",
+      attribute: {
+        type: "password",
+        name: "password",
+        placeholder: "Enter a password",
+        class: "text-input",
+        id: "pass-input",
+      },
+    },
+    {
+      tag: "input",
+      attribute: {
+        type: "submit",
+        value: "Login",
+        class: "login-btn btn",
+        id: "login-btn",
+      },
+    },
+    {
+      tag: "input",
+      attribute: {
+        type: "button",
+        name: "back",
+        title: "Go Back",
+        value: "Go Back",
+        class: "Back-btn btn",
+        id: "login-back",
+      },
+    },
+  ];
+  const form = document.createElement("form");
+
+  form.id = "loginForm";
+  //   form.class = "login-frame";
+  loginFields.forEach((f) => {
+    let field = document.createElement(f.tag);
+
+    Object.entries(f.attribute).forEach(([a, v]) => {
+      field.setAttribute(a, v);
+      let words = field.id.split("!");
+      // getting each word capitlaised
+      if (field.id) {
+        for (let i = 0; i < words.length; i++) {
+          words[i] = words[i][0].toUpperCase() + words[i].substring(1);
+        }
+      }
+      // set textcontent of label to the id we modified
+      const label = words.join(" ");
+      if (field.id) {
+        field.textContent = label;
+      }
+
+      loginMain.appendChild(field);
+    });
+  });
+
+// *** Submit User Login Button ***
+
+  form.append(loginHeader, loginMain);
+  form.onsubmit='null';
+  form.removeEventListener('submit', newUser);
+  form.addEventListener("submit", requestLogin); // Adds Event Listener for requestLogin
+  loginframe.appendChild(form);
+  mainFrame.appendChild(loginframe);
+  console.log(console.log(document.querySelectorAll("form")))
+
+} // end of form
+
+// ==================================================================
+// render more stuff
 async function renderFeed(e) {
   ////////////////////////////// Create Div with Create Button/Logoutbutton
   const feed = document.createElement("div");
@@ -427,15 +455,7 @@ document.addEventListener("click", function (e) {
   ) {
     renderHome();
   }
-
-  if (
-    (e.target && e.target.id == "signup-back") ||
-    (e.target && e.target.id == "login-back")
-  ) {
-    renderHome();
-  }
-});
-
+})
 module.exports = { renderHome, renderSignup, renderLogin };
 
 },{"./auth":1,"./requests":3}],3:[function(require,module,exports){
