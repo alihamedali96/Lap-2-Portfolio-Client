@@ -1,8 +1,8 @@
 const API_URL = require("./url");
 
-async function getAllHabits() {
+async function getAllHabits(id) {
   try {
-    const response = await fetch(`${API_URL}/habits/user/:id'`);
+    const response = await fetch(`${API_URL}/habits/user/${id}`);
     const data = await response.json();
     return data;
   } catch (err) {

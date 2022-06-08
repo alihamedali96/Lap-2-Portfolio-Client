@@ -73,10 +73,9 @@ function signupErr() {
 
 function login(data) {
   localStorage.setItem("username", data.user);
-
-  renderfeed();
+  renderfeed(data);
 }
-async function renderfeed() {
+async function renderfeed(data) {
   const mainframe = document.getElementById("mainframe");
   while (mainframe.firstChild) {
     mainframe.removeChild(mainframe.lastChild);
@@ -90,23 +89,26 @@ async function renderfeed() {
   header.className = "feed-header";
   const title = document.createElement("h1");
   title.className = "feed-title";
-  title.textContent = `Welcome back ${localStorage.getItem("username")}!}`;
+  title.textContent = `Welcome back ${data.name}!`;
   const createButton = document.createElement("button");
   createButton.className = "btn";
   createButton.id = "create-btn";
-  createButton.value = "New Habit";
+  createButton.textContent = "New Habit";
   createButton.addEventListener("click", openHabitModal);
-  console.log(feed, header, title, createButton);
 
   ////////////////////////////// Listing all the Habits
   // An array of habits
-  const habits = await getAllHabits();
+  const habits = await getAllHabits(data.id);
   // Write a func which with create a card for each habit
   const renderHabits = (habitData) => {
     //Create
-    console.log(habitData);
+
     const card = document.createElement("div");
     card.className = "habit-card";
+    card.setAttribute("id", `habit-card-${habitData.id}`);
+    card.addEventListener("click", (e) => {
+      openHabitInstance(e);
+    });
     const symbol = document.createElement("img");
     symbol.className = "habit-icon";
 
@@ -117,7 +119,7 @@ async function renderfeed() {
     habitTitle.textContent = habitData.habit_name;
     const habitFreq = document.createElement("p");
     habitFreq.className = "habit-freq";
-    habitFreq.textContent = habitData.frequency;
+    habitFreq.textContent = `Repeat every ${habitData.frequency.days} days`;
     const habitCheck = document.createElement("input");
     habitCheck.className = "habit-checkbox";
     habitCheck.id = `habit-${habitData.id}`;
@@ -136,6 +138,11 @@ async function renderfeed() {
 
 function openHabitModal(e) {
   e.preventDefault();
+}
+
+function openHabitInstance(e) {
+  const habitId = e.currentTarget.id.slice(-1);
+  console.log(habitId);
 }
 module.exports = {
   requestLogin,
