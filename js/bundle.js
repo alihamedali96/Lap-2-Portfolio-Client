@@ -116,8 +116,39 @@ function renderHome() {
   signupButton.className = "btn";
   signupButton.addEventListener("click", renderSignup);
 
+  const habitForm = document.createElement("form");
+  habitForm.className = "habit-frame";
+  const habit = document.createElement("input");
+  habit.type ="text";
+  habit.value ="am";
+  const fruquency = document.createElement("input");
+  habit.type ="select";
+ // habit.options = 
+ // habit.appendChild(new Option("date","date"));
+  console.log(habit.value);
+
+  //   <form class = "habit-frame">
+//   <label for="fname">First name:</label><br>
+//   <input type="text" id="fname" name="fname"><br>
+//   <label for="lname">Last name:</label><br>
+//   <input type="text" id="lname" name="lname">
+// </form>
+
+ // create habit Button
+ const createButton = document.createElement("button");
+ createButton.id = "create";
+ createButton.textContent = "Create";
+ createButton.className = "btn";
+ createButton.addEventListener("click", renderLogin);
+
+  habitForm.appendChild(habit);
+  habitForm.appendChild(fruquency);
+  habitForm.appendChild(createButton);
+
+
+
   // Append elements for homepage
-  homeContainer.append(homeTitle, homeText, loginButton, signupButton);
+  homeContainer.append(homeTitle, homeText, loginButton, signupButton,habitForm);
   mainFrame.append(homeContainer);
 }
 
@@ -483,6 +514,30 @@ document.addEventListener("click", function (e) {
     renderHome();
   }
 });
+
+function createHabitModal(e) {
+  e.preventDefault();
+   //Habit form
+   const habitForm = document.createElement("form");
+   habitForm.className = "habit-frame";
+   const habit = document.createElement("input");
+   habit.type ="text";
+   const fruquency = document.createElement("select");
+
+   //   <form class = "habit-frame">
+//   <label for="fname">First name:</label><br>
+//   <input type="text" id="fname" name="fname"><br>
+//   <label for="lname">Last name:</label><br>
+//   <input type="text" id="lname" name="lname">
+// </form>
+
+   habitForm.appendChild(habit,fruquency);
+
+}
+
+
+
+
 module.exports = { renderHome, renderSignup, renderLogin };
 
 },{"./auth":1,"./requests":3}],3:[function(require,module,exports){
