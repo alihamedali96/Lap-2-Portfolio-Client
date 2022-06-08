@@ -1,6 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const API_URL = require("./url");
-const renderFeed = require("./render");
+const getAllHabits = require("./requests");
 
 async function requestLogin(e) {
   e.preventDefault(e);
@@ -74,19 +74,79 @@ function signupErr() {
 
 function login(data) {
   localStorage.setItem("username", data.user);
-  renderFeed();
+
+  renderfeed();
+}
+async function renderfeed() {
+  const mainframe = document.getElementById("mainframe");
+  while (mainframe.firstChild) {
+    mainframe.removeChild(mainframe.lastChild);
+  }
+  // resetMainFrame();
+  const main = document.querySelector("#userframe");
+  ////////////////////////////// Create Div with Create Button/Logoutbutton
+  const feed = document.createElement("div");
+  feed.id = "feed";
+  const header = document.createElement("div");
+  header.className = "feed-header";
+  const title = document.createElement("h1");
+  title.className = "feed-title";
+  title.textContent = `Welcome back ${localStorage.getItem("username")}!}`;
+  const createButton = document.createElement("button");
+  createButton.className = "btn";
+  createButton.id = "create-btn";
+  createButton.value = "New Habit";
+  createButton.addEventListener("click", openHabitModal);
+  console.log(feed, header, title, createButton);
+
+  ////////////////////////////// Listing all the Habits
+  // An array of habits
+  const habits = await getAllHabits();
+  // Write a func which with create a card for each habit
+  const renderHabits = (habitData) => {
+    //Create
+    console.log(habitData);
+    const card = document.createElement("div");
+    card.className = "habit-card";
+    const symbol = document.createElement("img");
+    symbol.className = "habit-icon";
+
+    const textContainer = document.createElement("div");
+    textContainer.className = "habit-text-container";
+    const habitTitle = document.createElement("h3");
+    habitTitle.className = "habit-title";
+    habitTitle.textContent = habitData.habit_name;
+    const habitFreq = document.createElement("p");
+    habitFreq.className = "habit-freq";
+    habitFreq.textContent = habitData.frequency;
+    const habitCheck = document.createElement("input");
+    habitCheck.className = "habit-checkbox";
+    habitCheck.id = `habit-${habitData.id}`;
+    habitCheck.setAttribute("type", "checkbox");
+
+    //Append
+    textContainer.append(habitTitle, habitFreq);
+    card.append(symbol, textContainer, habitCheck);
+    header.append(title, createButton);
+    feed.append(card);
+  };
+
+  habits.forEach(renderHabits);
+  main.append(header, feed);
+}
+
+function openHabitModal(e) {
+  e.preventDefault();
 }
 module.exports = {
   requestLogin,
   newUser,
 };
 
-},{"./render":2,"./url":5}],2:[function(require,module,exports){
+},{"./requests":3,"./url":5}],2:[function(require,module,exports){
 const auth = require("./auth");
 const requestLogin = auth.requestLogin;
 const newUser = auth.newUser;
-
-const getAllHabits = require("./requests");
 
 const mainFrame = document.getElementById("mainframe");
 
@@ -426,61 +486,6 @@ function renderLogin() {
 
 // ==================================================================
 // render more stuff
-async function renderFeed(e) {
-  e.preventDefault();
-  resetMainFrame();
-  ////////////////////////////// Create Div with Create Button/Logoutbutton
-  const feed = document.createElement("div");
-  feed.id = "feed";
-  const header = document.createElement("div");
-  header.className = "feed-header";
-  const title = document.createElement("h1");
-  title.className = "feed-title";
-  title.textContent = `Welcome back ${localStorage.getItem("username")}!}`;
-  const createButton = document.createElement("button");
-  createButton.className = "btn";
-  createButton.id = "create-btn";
-  createButton.value = "New Habit";
-  createButton.addEventListener("click", openHabitModal);
-  console.log(feed, header, title, createButton);
-
-  ////////////////////////////// Listing all the Habits
-  // An array of habits
-  const habits = await getAllHabits();
-  // Write a func which with create a card for each habit
-  const renderHabits = (habitData) => {
-    //Create
-    const card = document.createElement("div");
-    card.className = "habit-card";
-    const symbol = document.createElement("img");
-    symbol.className = "habit-icon";
-    const textContainer = document.createElement("div");
-    textContainer.className = "habit-text-container";
-    const habitTitle = document.createElement("h3");
-    habitTitle.className = "habit-title";
-    habitTitle.textContent = habitData.habit_name;
-    const habitFreq = document.createElement("p");
-    habitFreq.className = "habit-freq";
-    habitFreq.textContent = habitData.frequency;
-    const habitCheck = document.createElement("input");
-    habitCheck.className = "habit-checkbox";
-    habitCheck.id = `habit-${habitData.id}`;
-    habitCheck.setAttribute("type", "checkbox");
-
-    //Append
-    textContainer.append(habitTitle, habitFreq);
-    card.append(symbol, textContainer, habitCheck);
-    header.append(title, createButton);
-    feed.append(header, card);
-  };
-
-  habits.forEach(renderHabits);
-  main.appendChild(feed);
-}
-
-function openHabitModal(e) {
-  e.preventDefault();
-}
 
 // Back button on either login/logout
 document.addEventListener("click", function (e) {
@@ -495,16 +500,14 @@ module.exports = {
   renderHome,
   renderSignup,
   renderLogin,
-  renderFeed,
-  openHabitModal,
 };
 
-},{"./auth":1,"./requests":3}],3:[function(require,module,exports){
+},{"./auth":1}],3:[function(require,module,exports){
 const API_URL = require("./url");
 
 async function getAllHabits() {
   try {
-    const response = await fetch(`${API_URL}/habits`);
+    const response = await fetch(`${API_URL}/habits/user/:id'`);
     const data = await response.json();
     return data;
   } catch (err) {

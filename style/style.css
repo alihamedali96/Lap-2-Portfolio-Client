@@ -184,3 +184,13 @@ main .login-main {
 .btn:hover {
   background-color: #1c84ff;
 }
+
+#feed {
+  padding: 8px;
+}
+
+.habit-card {
+  border: solid 1px black;
+  padding: 3px;
+  display: flex;
+}
