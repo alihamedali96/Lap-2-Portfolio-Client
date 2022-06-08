@@ -1,0 +1,186 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: helvetica, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  border-bottom: #006ae8 3px solid;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 50vh;
+}
+
+.main-frame {
+  width: 95vw;
+  max-width: 550px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 2rem;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.main-frame > h2,
+.main-frame > h3 {
+  flex-basis: 100%;
+  text-align: center;
+}
+.main-frame > h3 {
+  margin-bottom: 3rem;
+  font-size: 22px;
+}
+
+.main-frame > button {
+  height: 40px;
+  width: 110px;
+  justify-content: center;
+  margin: 1rem;
+}
+
+main .login-frame {
+  width: 95vw;
+
+  max-width: 550px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+main .login-header {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+main .login-main {
+  display: grid;
+  row-gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "name-label name-label"
+    "name-row name-row"
+    "pass-label pass-label"
+    "pass-row pass-row"
+    "signup-btn login-btn";
+}
+
+.text-input {
+  padding: 0.5em 0.25em;
+  height: 1.75rem;
+}
+
+#username {
+  grid-area: name-label;
+}
+
+#password {
+  grid-area: pass-label;
+}
+
+#name-input {
+  justify-self: start;
+  width: 100%;
+  grid-area: name-row;
+}
+
+#pass-input {
+  justify-self: start;
+  width: 100%;
+  grid-area: pass-row;
+  margin-bottom: 1rem;
+}
+#login-back {
+  justify-self: start;
+  grid-area: signup-btn;
+}
+.login-btn {
+  justify-self: end;
+  grid-area: login-btn;
+}
+
+.signup-frame {
+  width: 95vw;
+  max-width: 550px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.signup-header {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.signup-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.label {
+  flex-basis: 40%;
+}
+.text-input {
+  flex-basis: 50%;
+}
+
+.signup-main > input {
+  margin: 5px;
+}
+.signup-main > label {
+  margin: 5px;
+}
+
+/* *** Button Styling *** */
+
+.btn {
+  align-items: center;
+  appearance: button;
+  background-color: #0276ff;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  font-family: "RM Neue", sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  padding: 10px 21px;
+  text-align: center;
+  text-transform: none;
+  transition: color 0.13s ease-in-out, background 0.13s ease-in-out,
+    opacity 0.13s ease-in-out, box-shadow 0.13s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:active {
+  background-color: #006ae8;
+}
+
+.btn:hover {
+  background-color: #1c84ff;
+}
