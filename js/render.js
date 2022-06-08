@@ -1,4 +1,4 @@
-const auth = require("./auth")
+const auth = require("./auth");
 const requestLogin = auth.requestLogin;
 const newUser = auth.newUser;
 
@@ -11,13 +11,13 @@ function resetMainFrame() {
   while (mainFrame.firstChild) {
     mainFrame.removeChild(mainFrame.lastChild);
   }
-  console.log("elements destroyed")
+  console.log("elements destroyed");
 }
 
 // ==================================================================
 // render Home page
 function renderHome() {
-  console.log('rendering home');
+  console.log("rendering home");
   resetMainFrame();
 
   /// Create Text Elements and layout
@@ -50,12 +50,14 @@ function renderHome() {
 // ==================================================================
 // make render login form
 function renderSignup() {
-  console.log("rendering signup page")
+  console.log("rendering signup page");
   resetMainFrame();
   try {
-    if(form){console.log("form still exists",form)}
-  } catch (err){
-    console.error(err)
+    if (form) {
+      console.log("form still exists", form);
+    }
+  } catch (err) {
+    console.error(err);
   }
   // window.location.hash = "register";
 
@@ -70,8 +72,10 @@ function renderSignup() {
 
   const signupTitle = document.createElement("h2");
   signupTitle.textContent = "It is your time to find a Roo-tine";
+  signupTitle.id = "signupTitle";
   const signupText = document.createElement("h3");
   signupText.textContent = "Please fill in your details below";
+  signupText.id = "signupText";
 
   signupHeader.append(signupTitle, signupText);
   // Set up form with fields
@@ -211,18 +215,17 @@ function renderSignup() {
 
   // *** Submit New User Button ***
   form.append(signupHeader, signupMain);
-  form.onsubmit='null'
+  form.onsubmit = "null";
   form.addEventListener("submit", newUser); // Adds newUser event to form onsubmit
   signupframe.appendChild(form);
   mainFrame.appendChild(signupframe);
-  console.log(console.log(document.querySelectorAll("form")))
-
+  console.log(console.log(document.querySelectorAll("form")));
 } // end of form
 
 // ==================================================================
 // make render reg form
 function renderLogin() {
-  console.log("rendering login page")
+  console.log("rendering login page");
   resetMainFrame();
   // window.location.hash = "login";
 
@@ -326,21 +329,22 @@ function renderLogin() {
     });
   });
 
-// *** Submit User Login Button ***
+  // *** Submit User Login Button ***
 
   form.append(loginHeader, loginMain);
-  form.onsubmit='null';
-  form.removeEventListener('submit', newUser);
+  form.onsubmit = "null";
+  form.removeEventListener("submit", newUser);
   form.addEventListener("submit", requestLogin); // Adds Event Listener for requestLogin
   loginframe.appendChild(form);
   mainFrame.appendChild(loginframe);
-  console.log(console.log(document.querySelectorAll("form")))
-
+  console.log(console.log(document.querySelectorAll("form")));
 } // end of form
 
 // ==================================================================
 // render more stuff
 async function renderFeed(e) {
+  e.preventDefault();
+  resetMainFrame();
   ////////////////////////////// Create Div with Create Button/Logoutbutton
   const feed = document.createElement("div");
   feed.id = "feed";
@@ -354,6 +358,7 @@ async function renderFeed(e) {
   createButton.id = "create-btn";
   createButton.value = "New Habit";
   createButton.addEventListener("click", openHabitModal);
+  console.log(feed, header, title, createButton);
 
   ////////////////////////////// Listing all the Habits
   // An array of habits
@@ -388,6 +393,8 @@ async function renderFeed(e) {
   habits.forEach(renderHabits);
   main.appendChild(feed);
 }
+const bypassBtn = document.getElementById("bypass");
+bypassBtn.addEventListener("click", renderFeed);
 
 function openHabitModal(e) {
   e.preventDefault();
@@ -401,5 +408,5 @@ document.addEventListener("click", function (e) {
   ) {
     renderHome();
   }
-})
+});
 module.exports = { renderHome, renderSignup, renderLogin };
