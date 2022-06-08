@@ -163,6 +163,7 @@ function renderHabitInstance(instance, habit) {
   console.log(instance, habit);
   // Modal setup
   const userframe = document.querySelector("#instance-modal");
+  userframe.style.display = "block";
   const habitModal = document.createElement("div");
   habitModal.className = "modal";
   // Header
@@ -201,9 +202,7 @@ function renderHabitInstance(instance, habit) {
   const buttonClose = document.createElement("button");
   buttonClose.className = "btn";
   buttonClose.textContent = `Close`;
-  buttonClose.addEventListener("click", () => {
-    console.log("Close button clicked");
-  });
+  buttonClose.addEventListener("click", closeModal);
   const buttonDelete = document.createElement("button");
   buttonDelete.className = "Button-button btn";
   buttonDelete.textContent = `Change Button`;
@@ -211,6 +210,11 @@ function renderHabitInstance(instance, habit) {
     console.log("Delete button clicked");
   });
   buttonContainer.append(buttonClose, buttonDelete);
+
+  // Ovverlay
+  const overlay = document.createElement("div");
+  overlay.id = "modal-overlay";
+  document.body.appendChild(overlay);
 
   habitModal.append(
     modalTitle,
@@ -220,6 +224,14 @@ function renderHabitInstance(instance, habit) {
     buttonContainer
   );
   userframe.append(habitModal);
+}
+// Helper function --- Closing the modal of habit instance
+function closeModal() {
+  console.log("Close button clicked");
+  const userframe = document.querySelector("#instance-modal");
+  userframe.innerHTML = "";
+  userframe.style.display = "none";
+  document.body.removeChild(document.getElementById("modal-overlay"));
 }
 
 module.exports = {
