@@ -25,28 +25,35 @@
   </ol>
 </details>
 
-
 ---
+
 <!-- ABOUT THE PROJECT -->
+
 # About The Project
 
 Habit Tracker
 
 ### Remote Hosting
+
 The client side user interface is hosted [here](https://roo-teen.netlify.app/) on Netlify
 and Server side API is hosted [here](https://rooteen.herokuapp.com/) on Heroku.
 
 
+The site is hosted [https://roo-teen.netlify.app/] on Netlify
+and our API is hosted [here] on Heroku.
+
 ---
 
 ## Process
-* Planning: Listing all features and brainstorming a design.
-* Morning meetings to set daily goals & short Zoom meeting throughout the day to follow up progeress.
-* Good workflow within a team, working in pairs on front-end and back-end. 
-* Divide tasks and support each other.
-* Final styling, debugging and testing.
+
+- Planning: Listing all features and brainstorming a design.
+- Morning meetings to set daily goals & short Zoom meeting throughout the day to follow up progeress.
+- Good workflow within a team, working in pairs on front-end and back-end.
+- Divide tasks and support each other.
+- Final styling, debugging and testing.
 
 <!-- BUILT WITH -->
+
 # Built With
 
 ## Frontend Technologies
@@ -57,43 +64,63 @@ and Server side API is hosted [here](https://rooteen.herokuapp.com/) on Heroku.
 ![JavaScript](https://img.shields.io/badge/-JavaScript-%23F7DF1C?style=flat-square&logo=javascript&logoColor=000000&labelColor=%23F7DF1C&color=%23FFCE5A)
 
 ## Planning
+
 - [Excalidraw](https://www.Excalidraw.com/)
 - [Notion](https://www.notion.so/)
+
 ## Backend Packages
+
 - [NodeJS](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [Cors](https://expressjs.com/en/resources/middleware/cors.html)
-  
+
 ## Testing
+
 - [Jest](https://jestjs.io/)
 - [Supertest](https://github.com/visionmedia/supertest)
-  
+- [jsdom](https://jestjs.io/docs/tutorial-jquery)
+
 ### Development
+
 - [Nodemon](https://www.npmjs.com/package/nodemon)
 - [Watchify](https://www.npmjs.com/package/watchify)
 - [Concurrently](https://www.npmjs.com/package/concurrently)
+- [Browserfy](https://www.npmjs.com/package/browserify)
 
 ### API's
+
 - [Heroku](https://www.heroku.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+
 <!-- FUCNTIONALITY -->
----
+
 ## Functionality
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ---
+
 <!-- GETTING STARTED -->
+
 # Getting Started
+
 ### Remote Hosting
 
 The site is hosted [here] on Netlify
 and our API is hosted [here] on Heroku.
+
 <!-- INSTALLATION/USAGE EXAMPLES/TESTING -->
+
 # Installation and Usage
-Please follow instructions on installing and setting up this app. 
+
+
+Please follow instructions on installing and setting up this app.
+
+1. Fork or clone the repo and move into the folder
+2. In the commandline run the following script to launch the server `npm run dev`
+
 
 Test:
 
@@ -102,15 +129,17 @@ Test:
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ---
+
 <!-- CONTACT/CONTRIBUTORS -->
+
 ## Contributors
 
-Group project done by: 
+Group project done by:
+
 - <a href="https://github.com/alihamedali96">Ali Hamed</a>
 - <a href="https://github.com/n451m">Nasim Bilal</a>
 - <a href="https://github.com/SamHardiment">Sam Hardiment</a>
 - <a href="https://github.com/xargon666">Chris Pucknell</a>
-
 
 Project Link: [Client](https://github.com/alihamedali96/Lap-2-Portfolio-Client)
 
@@ -118,9 +147,4 @@ Project Link: [Server](https://github.com/alihamedali96/Lap-2-Portfolio-Server)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
 ---
-
-
-
-
