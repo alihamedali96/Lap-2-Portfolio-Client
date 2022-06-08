@@ -194,3 +194,11 @@ main .login-main {
   padding: 3px;
   display: flex;
 }
+
+#instance-modal {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: solid 1px #006ae8;
+}

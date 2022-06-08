@@ -121,14 +121,10 @@ async function renderfeed(data) {
     const habitFreq = document.createElement("p");
     habitFreq.className = "habit-freq";
     habitFreq.textContent = `Repeat every ${habitData.frequency.days} days`;
-    const habitCheck = document.createElement("input");
-    habitCheck.className = "habit-checkbox";
-    habitCheck.id = `habit-${habitData.id}`;
-    habitCheck.setAttribute("type", "checkbox");
 
     //Append
     textContainer.append(habitTitle, habitFreq);
-    card.append(symbol, textContainer, habitCheck);
+    card.append(symbol, textContainer);
     header.append(title, createButton);
     feed.append(card);
   };
@@ -141,10 +137,91 @@ function openHabitModal(e) {
   e.preventDefault();
 }
 
-function openHabitInstance(e) {
+// ========================= functionality of each habit
+
+async function openHabitInstance(e) {
   const habitId = e.currentTarget.id.slice(-1);
   console.log(habitId);
+
+  const r = await fetch(`${API_URL}/habit-instances/${habitId}`);
+  const instance = await r.json();
+  const p = await fetch(`${API_URL}/habits/${habitId}`);
+  const habit = await p.json();
+
+  renderHabitInstance(instance, habit);
+  // const response = await fetch(`${API_URL}/habit-instances/${habitId}`);
+  // const data = await response.json();
+  // console.log(data);
+
+  // renderHabitInstance()
 }
+
+// ========================= Create display for each habit
+
+function renderHabitInstance(instance, habit) {
+  console.log("hello from habit instance");
+  console.log(instance, habit);
+  // Modal setup
+  const userframe = document.querySelector("#instance-modal");
+  const habitModal = document.createElement("div");
+  habitModal.className = "modal";
+  // Header
+  const modalTitle = document.createElement("h2");
+  modalTitle.textContent = `Update ${habit.habit_name}`;
+
+  // complete div
+  const completeContainer = document.createElement("div");
+  completeContainer.className = "completeContainer";
+  const completeText = document.createElement("p");
+  completeText.className = "completeText";
+  completeText.textContent = `Check Off ${habit.habit_name}`;
+  const completeCheck = document.createElement("input");
+  completeCheck.className = "habit-checkbox";
+  completeCheck.setAttribute("type", "checkbox");
+  completeContainer.append(completeText, completeCheck);
+
+  // frequency
+  const frequencyContainer = document.createElement("div");
+  frequencyContainer.className = "frequencyContainer";
+  const frequencyText = document.createElement("p");
+  frequencyText.className = "frequencyText";
+  frequencyText.textContent = `Repeat habit every ${habit.frequency.days} days`;
+  const frequencyButton = document.createElement("button");
+  frequencyButton.className = "frequency-button btn";
+  frequencyButton.textContent = `Change Frequency`;
+  frequencyContainer.append(frequencyText, frequencyButton);
+
+  //Streak
+  const streakMsg = document.createElement("p");
+  streakMsg.textContent = `Your current streak is ...`;
+
+  // Buttons
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = "ButtonContainer";
+  const buttonClose = document.createElement("button");
+  buttonClose.className = "btn";
+  buttonClose.textContent = `Close`;
+  buttonClose.addEventListener("click", () => {
+    console.log("Close button clicked");
+  });
+  const buttonDelete = document.createElement("button");
+  buttonDelete.className = "Button-button btn";
+  buttonDelete.textContent = `Change Button`;
+  buttonDelete.addEventListener("click", () => {
+    console.log("Delete button clicked");
+  });
+  buttonContainer.append(buttonClose, buttonDelete);
+
+  habitModal.append(
+    modalTitle,
+    completeContainer,
+    frequencyContainer,
+    streakMsg,
+    buttonContainer
+  );
+  userframe.append(habitModal);
+}
+
 module.exports = {
   requestLogin,
   newUser,
