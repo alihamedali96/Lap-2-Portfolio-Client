@@ -35,6 +35,10 @@ Habit Tracker
 
 ### Remote Hosting
 
+The client side user interface is hosted [here](https://roo-teen.netlify.app/) on Netlify
+and Server side API is hosted [here](https://rooteen.herokuapp.com/) on Heroku.
+
+
 The site is hosted [https://roo-teen.netlify.app/] on Netlify
 and our API is hosted [here] on Heroku.
 
@@ -89,7 +93,8 @@ and our API is hosted [here] on Heroku.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## <!-- FUCNTIONALITY -->
+
+<!-- FUCNTIONALITY -->
 
 ## Functionality
 
@@ -110,10 +115,12 @@ and our API is hosted [here] on Heroku.
 
 # Installation and Usage
 
+
 Please follow instructions on installing and setting up this app.
 
 1. Fork or clone the repo and move into the folder
 2. In the commandline run the following script to launch the server `npm run dev`
+
 
 Test:
 
