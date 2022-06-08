@@ -1,5 +1,4 @@
 const API_URL = require("./url");
-const renderHome = require("./render");
 
 async function requestLogin(e) {
   e.preventDefault(e);
@@ -12,7 +11,7 @@ async function requestLogin(e) {
     };
     console.log(options);
     clearInputs();
-    const response = await fetch(`${API_URL}/users`, options);
+    const response = await fetch(`${API_URL}/users/login`, options);
     const data = await response.json();
     console.log(data);
   } catch (err) {

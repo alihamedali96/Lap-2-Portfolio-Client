@@ -1,6 +1,5 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const API_URL = require("./url");
-const renderHome = require("./render");
 
 async function requestLogin(e) {
   e.preventDefault(e);
@@ -13,7 +12,7 @@ async function requestLogin(e) {
     };
     console.log(options);
     clearInputs();
-    const response = await fetch(`${API_URL}/users`, options);
+    const response = await fetch(`${API_URL}/users/login`, options);
     const data = await response.json();
     console.log(data);
   } catch (err) {
@@ -72,7 +71,7 @@ module.exports = {
   newUser,
 };
 
-},{"./render":2,"./url":5}],2:[function(require,module,exports){
+},{"./url":5}],2:[function(require,module,exports){
 const auth = require("./auth");
 const requestLogin = auth.requestLogin;
 const newUser = auth.newUser;
