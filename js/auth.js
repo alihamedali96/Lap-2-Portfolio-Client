@@ -1,4 +1,5 @@
 const API_URL = require("./url");
+const renderFeed = require("./render");
 
 async function requestLogin(e) {
   e.preventDefault(e);
@@ -14,6 +15,10 @@ async function requestLogin(e) {
     const response = await fetch(`${API_URL}/users/login`, options);
     const data = await response.json();
     console.log(data);
+    if (data.err) {
+      throw Error(data.err);
+    }
+    login(data);
   } catch (err) {
     console.log(err);
   }
@@ -64,6 +69,11 @@ function signupErr() {
   header.textContent = "Username already exists";
   const errMsg = document.querySelector("#signupText");
   errMsg.textContent = "Please try a different username";
+}
+
+function login(data) {
+  localStorage.setItem("username", data.user);
+  renderFeed();
 }
 module.exports = {
   requestLogin,

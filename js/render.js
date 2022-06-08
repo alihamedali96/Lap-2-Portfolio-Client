@@ -393,8 +393,6 @@ async function renderFeed(e) {
   habits.forEach(renderHabits);
   main.appendChild(feed);
 }
-const bypassBtn = document.getElementById("bypass");
-bypassBtn.addEventListener("click", renderFeed);
 
 function openHabitModal(e) {
   e.preventDefault();
@@ -409,4 +407,10 @@ document.addEventListener("click", function (e) {
     renderHome();
   }
 });
-module.exports = { renderHome, renderSignup, renderLogin };
+module.exports = {
+  renderHome,
+  renderSignup,
+  renderLogin,
+  renderFeed,
+  openHabitModal,
+};
