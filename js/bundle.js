@@ -1,5 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const API_URL = require("./url");
+const renderFeed = require("./render");
 
 async function requestLogin(e) {
   e.preventDefault(e);
@@ -15,6 +16,10 @@ async function requestLogin(e) {
     const response = await fetch(`${API_URL}/users/login`, options);
     const data = await response.json();
     console.log(data);
+    if (data.err) {
+      throw Error(data.err);
+    }
+    login(data);
   } catch (err) {
     console.log(err);
   }
@@ -66,12 +71,17 @@ function signupErr() {
   const errMsg = document.querySelector("#signupText");
   errMsg.textContent = "Please try a different username";
 }
+
+function login(data) {
+  localStorage.setItem("username", data.user);
+  renderFeed();
+}
 module.exports = {
   requestLogin,
   newUser,
 };
 
-},{"./url":5}],2:[function(require,module,exports){
+},{"./render":2,"./url":5}],2:[function(require,module,exports){
 const auth = require("./auth");
 const requestLogin = auth.requestLogin;
 const newUser = auth.newUser;
@@ -467,8 +477,6 @@ async function renderFeed(e) {
   habits.forEach(renderHabits);
   main.appendChild(feed);
 }
-const bypassBtn = document.getElementById("bypass");
-bypassBtn.addEventListener("click", renderFeed);
 
 function openHabitModal(e) {
   e.preventDefault();
@@ -483,7 +491,13 @@ document.addEventListener("click", function (e) {
     renderHome();
   }
 });
-module.exports = { renderHome, renderSignup, renderLogin };
+module.exports = {
+  renderHome,
+  renderSignup,
+  renderLogin,
+  renderFeed,
+  openHabitModal,
+};
 
 },{"./auth":1,"./requests":3}],3:[function(require,module,exports){
 const API_URL = require("./url");
