@@ -696,9 +696,9 @@ module.exports = {
 },{"./auth":1}],3:[function(require,module,exports){
 const API_URL = require("./url");
 
-async function getAllHabits(id) {
+async function getAllHabits() {
   try {
-    const response = await fetch(`${API_URL}/habits/user/${id}`);
+    const response = await fetch(`${API_URL}/habits`);
     const data = await response.json();
     return data;
   } catch (err) {
