@@ -143,7 +143,7 @@ async function openHabitInstance(e) {
   const habitId = e.currentTarget.id.slice(-1);
   console.log(habitId);
 
-  const r = await fetch(`${API_URL}/habit-instances/${habitId}`);
+  const r = await fetch(`${API_URL}/habit-instances/habit/${habitId}`);
   const instance = await r.json();
   const p = await fetch(`${API_URL}/habits/${habitId}`);
   const habit = await p.json();
@@ -161,11 +161,13 @@ async function openHabitInstance(e) {
 function renderHabitInstance(instance, habit) {
   console.log("hello from habit instance");
   console.log(instance, habit);
+
   // Modal setup
   const userframe = document.querySelector("#instance-modal");
   userframe.style.display = "block";
   const habitModal = document.createElement("div");
   habitModal.className = "modal";
+
   // Header
   const modalTitle = document.createElement("h2");
   modalTitle.textContent = `Update ${habit.habit_name}`;
@@ -173,13 +175,17 @@ function renderHabitInstance(instance, habit) {
   // complete div
   const completeContainer = document.createElement("div");
   completeContainer.className = "completeContainer";
-  const completeText = document.createElement("p");
-  completeText.className = "completeText";
-  completeText.textContent = `Check Off ${habit.habit_name}`;
-  const completeCheck = document.createElement("input");
-  completeCheck.className = "habit-checkbox";
-  completeCheck.setAttribute("type", "checkbox");
-  completeContainer.append(completeText, completeCheck);
+  for (i of instance){
+    const completeText = document.createElement("p");
+    completeText.className = "completeText";
+    completeText.textContent = `Check Off ${i.due_date}`;
+    const completeCheck = document.createElement("input");
+    completeCheck.className = "habit-checkbox";
+    completeCheck.setAttribute("type", "checkbox");
+    const habitInstance = document.createElement("div")
+    habitInstance.append(completeText, completeCheck);
+    completeContainer.append(habitInstance);
+  }
 
   // frequency
   const frequencyContainer = document.createElement("div");
