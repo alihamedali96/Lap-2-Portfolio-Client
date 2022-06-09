@@ -1,5 +1,3 @@
-//
-
 const renderDOM = require("./helpers");
 let dom;
 let document;
@@ -11,7 +9,6 @@ describe("Render Testing", () => {
   }); 
 
   describe("Render Home", () => {
-    
     it("create mainframe div", () => {
       const element = document.querySelector("#mainFrame")
       expect(element).toBeTruthy
@@ -32,7 +29,6 @@ describe("Render Testing", () => {
       expect(element).toBeTruthy && expect(element.textContent).toBe("Login to start now!")
     })
     
-
   }); // end render home
 
   describe("Render Login Form", () => {
@@ -51,19 +47,11 @@ describe("Render Testing", () => {
     });
 
     describe("Render Register Form", () => {
-      // it("displays a title when the login button is clicked", () => {
-      //   const btn = document.querySelector("#login");
-      //   btn.dispatchEvent(new dom.window.Event("click"));
-      //   const div = document.querySelector("h2");
-      //   expect(div.innerHTML).toContain("Welcome back to your Roo-tine");
-      // });
 
-      // it("displays login form when the login button is clicked", () => {
-      //   const btn = document.querySelector("#login");
-      //   btn.dispatchEvent(new dom.window.Event("click"));
-      //   const logindiv = document.querySelector("#loginForm");
-      //   expect(logindiv).toBeTruthy();
-      // });
+      it("",()=>{
+
+      })
+
     }); // end reg form
   });
 });
