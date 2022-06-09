@@ -30,14 +30,14 @@ function renderHome() {
   const loginButton = document.createElement("button");
   loginButton.id = "login";
   loginButton.textContent = "Login";
-  loginButton.className = "btn";
+  loginButton.className = "btn-1 btn";
   loginButton.addEventListener("click", renderLogin);
 
   // Sign up button
   const signupButton = document.createElement("button");
   signupButton.id = "signup";
   signupButton.textContent = "Sign Up";
-  signupButton.className = "btn";
+  signupButton.className = "btn-2 btn";
   signupButton.addEventListener("click", renderSignup);
 
   // Append elements for homepage
@@ -93,6 +93,7 @@ function renderSignup() {
         name: "name",
         placeholder: "Enter your name",
         class: "text-input",
+        required: " ",
       },
     },
     {
@@ -110,6 +111,7 @@ function renderSignup() {
         name: "username",
         placeholder: "Enter a username",
         class: "text-input",
+        required: " ",
       },
     },
     {
@@ -127,6 +129,7 @@ function renderSignup() {
         name: "email",
         placeholder: "Enter your email",
         class: "text-input",
+        required: " ",
       },
     },
     {
@@ -144,6 +147,7 @@ function renderSignup() {
         name: "password",
         placeholder: "Enter a password",
         class: "text-input",
+        required: " ",
       },
     },
     {
@@ -237,7 +241,7 @@ function renderLogin() {
   loginMain.className = "login-main";
 
   const loginTitle = document.createElement("h2");
-  loginTitle.textContent = "Welcome back to your Roo-tine";
+  loginTitle.textContent = `Welcome back to your \n Roo-tine`;
   const loginText = document.createElement("h3");
   loginText.textContent = "Please login in";
 
@@ -260,6 +264,7 @@ function renderLogin() {
         placeholder: "Enter a username",
         class: "text-input",
         id: "name-input",
+        required: " ",
       },
     },
     {
@@ -278,6 +283,7 @@ function renderLogin() {
         placeholder: "Enter a password",
         class: "text-input",
         id: "pass-input",
+        required: " ",
       },
     },
     {

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@600&family=Kadwa&family=Kreon:wght@700&display=swap");
+
 *,
 *::before,
 *::after {
@@ -6,30 +8,113 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg-color: #210357;
+  --bg-color-2: #310c75;
+  --sh-color: #321d57;
+  --dom-color: #5109d7;
+  --subdom-color: #3d07a3;
+  --light-color: #734bdd;
+  --light-yellow: #ffe69c;
+  --green-color: #1ed63e;
+  --accent: #f5c025;
+  --accent-warm: #f57c25;
+}
 body {
   font-family: helvetica, sans-serif;
 }
 
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  /* overflow:hidden; */
+}
+
+body {
+  background: var(--bg-color);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+/* *** Font Stuff *** */
+
+h1,
+h2 {
+  font-family: "Baloo Paaji 2", cursive;
+  line-height: 1;
+}
+body {
+  color: var(--light-yellow);
+  text-shadow: 3px 3px var(--sh-color);
+  font-size: 1.1rem;
+}
+
+h1 {
+  font-size: 72px;
+  text-transform: uppercase;
+  color: var(--accent);
+  /* gradient text, messes up text shadows
+  background: -webkit-linear-gradient(var(--accent),var(--accent),var(--accent),var(--accent-warm),#fff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  */
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+h3 {
+  font-family: "Kadwa", serif;
+}
+
+label {
+  font-family: "Kreon", serif;
+}
+h2 {
+  color: var(--accent);
+}
+
+.text-input {
+  font-family: "Kreon", serif;
+  letter-spacing: 0.05em;
+  color: var(--dom-color);
+  font-size: 1.1rem;
+}
+
+/* header */
+
 header {
+  background: linear-gradient(
+    180deg,
+    #3d07a3 0%,
+    #4708be 75%,
+    var(--dom-color) 100%
+  );
   display: flex;
   justify-content: center;
   align-items: center;
   height: 10vh;
-  border-bottom: #006ae8 3px solid;
+  border-bottom: var(--light-color) 4px solid;
 }
+
+/* main bit */
 
 main {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 50vh;
+  height: auto;
 }
 
 .main-frame {
+  margin-top: 7vh;
+  background-color: var(--subdom-color);
+
   width: 95vw;
   max-width: 550px;
-  border: 2px solid black;
+  border: 3px solid var(--light-color);
   border-radius: 10px;
   padding: 2rem;
   height: 400px;
@@ -55,15 +140,18 @@ main {
 }
 
 main .login-frame {
-  width: 95vw;
-
-  max-width: 550px;
-  border: 2px solid black;
-  border-radius: 10px;
+  margin-top: 7vh;
+  width: 65vw;
+  max-width: 600px;
+  background: var(--subdom-color);
+  border: 3px solid var(--light-color);
+  border-radius: 15px;
   padding: 2rem;
+  box-shadow: 11px 11px 22px 5px rgba(17, 17, 17, 0.35);
 }
 
 main .login-header {
+  width: 100%;
   text-align: center;
   margin: 1rem 0;
 }
@@ -71,7 +159,7 @@ main .login-header {
 main .login-main {
   display: grid;
   row-gap: 0.5rem;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-rows: auto;
   grid-template-areas:
     "name-label name-label"
@@ -82,6 +170,20 @@ main .login-main {
 }
 
 .text-input {
+  padding: 1em 0.5em;
+  height: 1.75rem;
+  background: var(--light-yellow);
+  border: none;
+  border-radius: 5px;
+  box-shadow: 3px 3px var(--sh-color);
+  caret-color: var(--dom-color);
+}
+
+.text-input:focus {
+  outline: solid 3px var(--light-color);
+}
+
+#name-label {
   padding: 0.5em 0.25em;
   height: 1.75rem;
 }
@@ -95,16 +197,16 @@ main .login-main {
 }
 
 #name-input {
-  justify-self: start;
   width: 100%;
+  justify-self: start;
   grid-area: name-row;
 }
 
 #pass-input {
-  justify-self: start;
   width: 100%;
+  justify-self: end;
   grid-area: pass-row;
-  margin-bottom: 1rem;
+  margin-bottom: 1.75rem;
 }
 #login-back {
   justify-self: start;
@@ -116,9 +218,11 @@ main .login-main {
 }
 
 .signup-frame {
+  margin-top: 7vh;
   width: 95vw;
   max-width: 550px;
-  border: 2px solid black;
+  background: var(--subdom-color);
+  border: 3px solid var(--light-color);
   border-radius: 10px;
   padding: 2rem;
 }
@@ -150,21 +254,43 @@ main .login-main {
 
 /* *** Button Styling *** */
 
+.btn-1 {
+  background-color: var(--green-color);
+  color: var(--bg-color);
+}
+
+.btn-2 {
+  background-color: var(--light-color);
+  color: var(--light-yellow);
+}
+
+.btn:hover {
+  background-color: var(--accent);
+  color: var(--bg-color);
+}
+
+.btn:active {
+  background-color: var(--accent-warm);
+  color: var(--bg-color);
+}
+
 .btn {
+  width: 14vw;
+  min-width: 150px;
+  max-width: 50%;
   align-items: center;
   appearance: button;
-  background-color: #0276ff;
   border-radius: 8px;
   border-style: none;
-  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  box-shadow: var(--sh-color) 2px 2px 2px;
   box-sizing: border-box;
-  color: #fff;
   cursor: pointer;
+  font-family: "Baloo Paaji 2", serif;
+  font-size: 110%;
   display: flex;
+  justify-content: center;
   flex-direction: row;
   flex-shrink: 0;
-  font-family: "RM Neue", sans-serif;
-  font-size: 100%;
   line-height: 1.15;
   margin: 0;
   padding: 10px 21px;
@@ -176,36 +302,121 @@ main .login-main {
   -webkit-user-select: none;
   touch-action: manipulation;
 }
+/* 
+@media only screen and (min-width: 720px) {
+  main .login-frame {
+    margin: 2vw;
+    width: 95vw;
+  }
 
-.btn:active {
-  background-color: #006ae8;
-}
+  main .login-main {
+    display: grid;
+    row-gap: 0.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "name-label"
+      "name-row"
+      "pass-label"
+      "pass-row"
+      "login-btn"
+      "signup-btn";
+  }
 
-.btn:hover {
-  background-color: #1c84ff;
-}
+  input,
+  .btn {
+    justify-self: center;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .signup-btn {
+    grid-area: signup-btn;
+  }
+  .login-btn {
+    grid-area: login-btn;
+  }
+} */
 
 #feed {
-  padding: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+.feed-title {
+  font-size: 48px;
+}
+.feed-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  row-gap: 15px;
+  margin-bottom: 30px;
+}
+#create-btn {
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .habit-card {
-  border: solid 1px black;
-  padding: 3px;
+  background: var(--subdom-color);
+  border: 2px solid var(--light-color);
+  padding: 15px;
   display: flex;
+  height: 90px;
+  column-gap: 20px;
+  /* justify-content: space-between; */
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+}
+.habit-title {
+  font-size: 22px;
+}
+.habit-text {
+  font-size: 16px;
 }
 
+.habit-icon {
+  width: 40px;
+  height: 40px;
+}
+.habit-text-container > * {
+  padding: 4px;
+}
+
+.habit-reminder {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  width: 80px;
+  padding: 10px;
+  background-color: var(--green-color);
+  color: var(--sh-color);
+  border-radius: 15px;
+  text-shadow: none;
+  font-family: "Kreon", serif;
+}
+.habit-reminder:hover {
+  cursor: pointer;
+}
 #instance-modal {
   display: none;
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
-  border: solid 1px #006ae8;
+  background: var(--subdom-color);
+  border: 3px solid var(--light-color);
   z-index: 10;
-  width: 300px;
-  height: 400px;
+  width: 500px;
+  min-height: 300px;
+  max-height: 600px;
   padding: 20px;
   border-radius: 10px;
 }
@@ -220,11 +431,21 @@ main .login-main {
 .completeContainer {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
   align-items: center;
   margin-top: 20px;
   padding: 5px;
+  row-gap: 10px;
 }
 
+.completeContainer > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.completeContainer > div > p {
+  margin-right: auto;
+}
 .frequencyContainer {
   display: flex;
   justify-content: space-around;
@@ -272,7 +493,19 @@ main .login-main {
 .button-delete {
   width: 85px;
   height: 40px;
+  background-color: var(--accent);
+}
+.button-delete:hover {
   background-color: rgb(241, 77, 77);
+  cursor: pointer;
+}
+.button-add {
+  width: 85px;
+  height: 40px;
+  background-color: var(--accent);
+}
+button-add:hover {
+  background-color: rgb(85, 241, 77);
 }
 
 #modal-overlay {
@@ -284,4 +517,10 @@ main .login-main {
   z-index: 0;
   background-color: black;
   opacity: 0.5;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }
