@@ -3,30 +3,25 @@ const getAllHabits = require("./requests");
 
 async function requestLogin(e) {
   e.preventDefault(e);
-  console.log("hello from login");
   try {
     const options = {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
     };
-    console.log(options);
     clearInputs();
     const response = await fetch(`${API_URL}/users/login`, options);
     const data = await response.json();
-    console.log(data);
     if (data.err) {
       throw Error(data.err);
     }
     login(data);
   } catch (err) {
-    console.log(err);
   }
 }
 
 async function newUser(e) {
   e.preventDefault();
-  console.log(JSON.stringify(Object.fromEntries(new FormData(e.target))));
   try {
     const options = {
       method: "POST",
@@ -36,7 +31,6 @@ async function newUser(e) {
 
     const response = await fetch(`${API_URL}/users`, options);
     const data = await response.json();
-    console.log(data);
     // Clearing inputs
     clearInputs();
     // Thank you message
@@ -45,7 +39,6 @@ async function newUser(e) {
     return data;
   } catch (err) {
     signupErr();
-    console.log(err);
   }
 }
 
@@ -223,7 +216,6 @@ async function addNewHabit(e) {
 
 async function openHabitInstance(e) {
   const habitId = e.currentTarget.id.slice(-1);
-  console.log(habitId);
 
   const r = await fetch(`${API_URL}/habit-instances/habit/${habitId}`);
   const instance = await r.json();
@@ -231,19 +223,11 @@ async function openHabitInstance(e) {
   const habit = await p.json();
 
   renderHabitInstance(instance, habit);
-  // const response = await fetch(`${API_URL}/habit-instances/${habitId}`);
-  // const data = await response.json();
-  // console.log(data);
-
-  // renderHabitInstance()
 }
 
 // ========================= Create display for each habit
 
 function renderHabitInstance(instance, habit) {
-  console.log("hello from habit instance");
-  console.log(instance, habit);
-
   // Modal setup
   const userframe = document.querySelector("#instance-modal");
   userframe.style.display = "block";
@@ -313,9 +297,9 @@ function renderHabitInstance(instance, habit) {
   );
   userframe.append(habitModal);
 }
+
 // Helper function --- Closing the modal of habit instance
 function closeModal() {
-  console.log("Close button clicked");
   const userframe = document.querySelector("#instance-modal");
   userframe.innerHTML = "";
   userframe.style.display = "none";

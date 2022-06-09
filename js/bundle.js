@@ -4,30 +4,25 @@ const getAllHabits = require("./requests");
 
 async function requestLogin(e) {
   e.preventDefault(e);
-  console.log("hello from login");
   try {
     const options = {
       method: "POST",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
     };
-    console.log(options);
     clearInputs();
     const response = await fetch(`${API_URL}/users/login`, options);
     const data = await response.json();
-    console.log(data);
     if (data.err) {
       throw Error(data.err);
     }
     login(data);
   } catch (err) {
-    console.log(err);
   }
 }
 
 async function newUser(e) {
   e.preventDefault();
-  console.log(JSON.stringify(Object.fromEntries(new FormData(e.target))));
   try {
     const options = {
       method: "POST",
@@ -37,7 +32,6 @@ async function newUser(e) {
 
     const response = await fetch(`${API_URL}/users`, options);
     const data = await response.json();
-    console.log(data);
     // Clearing inputs
     clearInputs();
     // Thank you message
@@ -46,7 +40,6 @@ async function newUser(e) {
     return data;
   } catch (err) {
     signupErr();
-    console.log(err);
   }
 }
 
@@ -224,7 +217,6 @@ async function addNewHabit(e) {
 
 async function openHabitInstance(e) {
   const habitId = e.currentTarget.id.slice(-1);
-  console.log(habitId);
 
   const r = await fetch(`${API_URL}/habit-instances/habit/${habitId}`);
   const instance = await r.json();
@@ -232,19 +224,11 @@ async function openHabitInstance(e) {
   const habit = await p.json();
 
   renderHabitInstance(instance, habit);
-  // const response = await fetch(`${API_URL}/habit-instances/${habitId}`);
-  // const data = await response.json();
-  // console.log(data);
-
-  // renderHabitInstance()
 }
 
 // ========================= Create display for each habit
 
 function renderHabitInstance(instance, habit) {
-  console.log("hello from habit instance");
-  console.log(instance, habit);
-
   // Modal setup
   const userframe = document.querySelector("#instance-modal");
   userframe.style.display = "block";
@@ -314,9 +298,9 @@ function renderHabitInstance(instance, habit) {
   );
   userframe.append(habitModal);
 }
+
 // Helper function --- Closing the modal of habit instance
 function closeModal() {
-  console.log("Close button clicked");
   const userframe = document.querySelector("#instance-modal");
   userframe.innerHTML = "";
   userframe.style.display = "none";
@@ -333,6 +317,8 @@ const auth = require("./auth");
 const requestLogin = auth.requestLogin;
 const newUser = auth.newUser;
 
+const getAllHabits = require("./requests");
+
 const mainFrame = document.getElementById("mainframe");
 
 // Reset hash and homepage content
@@ -340,13 +326,11 @@ function resetMainFrame() {
   while (mainFrame.firstChild) {
     mainFrame.removeChild(mainFrame.lastChild);
   }
-  console.log("elements destroyed");
 }
 
 // ==================================================================
 // render Home page
 function renderHome() {
-  console.log("rendering home");
   resetMainFrame();
 
   /// Create Text Elements and layout
@@ -379,16 +363,7 @@ function renderHome() {
 // ==================================================================
 // make render login form
 function renderSignup() {
-  console.log("rendering signup page");
   resetMainFrame();
-  try {
-    if (form) {
-      console.log("form still exists", form);
-    }
-  } catch (err) {
-    console.error(err);
-  }
-  // window.location.hash = "register";
 
   const signupframe = document.createElement("div");
   signupframe.className = "signup-frame";
@@ -552,13 +527,11 @@ function renderSignup() {
   form.addEventListener("submit", newUser); // Adds newUser event to form onsubmit
   signupframe.appendChild(form);
   mainFrame.appendChild(signupframe);
-  console.log(console.log(document.querySelectorAll("form")));
 } // end of form
 
 // ==================================================================
 // make render reg form
 function renderLogin() {
-  console.log("rendering login page");
   resetMainFrame();
   // window.location.hash = "login";
 
@@ -672,11 +645,65 @@ function renderLogin() {
   form.addEventListener("submit", requestLogin); // Adds Event Listener for requestLogin
   loginframe.appendChild(form);
   mainFrame.appendChild(loginframe);
-  console.log(console.log(document.querySelectorAll("form")));
 } // end of form
 
 // ==================================================================
 // render more stuff
+async function renderFeed(e) {
+  e.preventDefault();
+  resetMainFrame();
+  ////////////////////////////// Create Div with Create Button/Logoutbutton
+  const feed = document.createElement("div");
+  feed.id = "feed";
+  const header = document.createElement("div");
+  header.className = "feed-header";
+  const title = document.createElement("h1");
+  title.className = "feed-title";
+  title.textContent = `Welcome back ${localStorage.getItem("username")}!}`;
+  const createButton = document.createElement("button");
+  createButton.className = "btn";
+  createButton.id = "create-btn";
+  createButton.value = "New Habit";
+  createButton.addEventListener("click", openHabitModal);
+  console.log(feed, header, title, createButton);
+
+  ////////////////////////////// Listing all the Habits
+  // An array of habits
+  const habits = await getAllHabits();
+  // Write a func which with create a card for each habit
+  const renderHabits = (habitData) => {
+    //Create
+    const card = document.createElement("div");
+    card.className = "habit-card";
+    const symbol = document.createElement("img");
+    symbol.className = "habit-icon";
+    const textContainer = document.createElement("div");
+    textContainer.className = "habit-text-container";
+    const habitTitle = document.createElement("h3");
+    habitTitle.className = "habit-title";
+    habitTitle.textContent = habitData.habit_name;
+    const habitFreq = document.createElement("p");
+    habitFreq.className = "habit-freq";
+    habitFreq.textContent = habitData.frequency;
+    const habitCheck = document.createElement("input");
+    habitCheck.className = "habit-checkbox";
+    habitCheck.id = `habit-${habitData.id}`;
+    habitCheck.setAttribute("type", "checkbox");
+
+    //Append
+    textContainer.append(habitTitle, habitFreq);
+    card.append(symbol, textContainer, habitCheck);
+    header.append(title, createButton);
+    feed.append(header, card);
+  };
+
+  habits.forEach(renderHabits);
+  main.appendChild(feed);
+}
+
+function openHabitModal(e) {
+  e.preventDefault();
+}
 
 // Back button on either login/logout
 document.addEventListener("click", function (e) {
@@ -691,14 +718,16 @@ module.exports = {
   renderHome,
   renderSignup,
   renderLogin,
+  renderFeed,
+  openHabitModal,
 };
 
-},{"./auth":1}],3:[function(require,module,exports){
+},{"./auth":1,"./requests":3}],3:[function(require,module,exports){
 const API_URL = require("./url");
 
-async function getAllHabits(id) {
+async function getAllHabits() {
   try {
-    const response = await fetch(`${API_URL}/habits/user/${id}`);
+    const response = await fetch(`${API_URL}/habits`);
     const data = await response.json();
     console.log(data);
     return data;
