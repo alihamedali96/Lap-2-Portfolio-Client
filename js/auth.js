@@ -1,5 +1,5 @@
 const API_URL = require("./url");
-const renderFeed = require("./render");
+const getAllHabits = require("./requests");
 
 async function requestLogin(e) {
   e.preventDefault(e);
@@ -73,8 +73,166 @@ function signupErr() {
 
 function login(data) {
   localStorage.setItem("username", data.user);
-  renderFeed();
+  renderfeed(data);
 }
+async function renderfeed(data) {
+  const mainframe = document.getElementById("mainframe");
+  while (mainframe.firstChild) {
+    mainframe.removeChild(mainframe.lastChild);
+  }
+  // resetMainFrame();
+  const main = document.querySelector("#userframe");
+  ////////////////////////////// Create Div with Create Button/Logoutbutton
+  const feed = document.createElement("div");
+  feed.id = "feed";
+  const header = document.createElement("div");
+  header.className = "feed-header";
+  const title = document.createElement("h1");
+  title.className = "feed-title";
+  title.textContent = `Welcome back ${data.name}!`;
+  const createButton = document.createElement("button");
+  createButton.className = "btn";
+  createButton.id = "create-btn";
+  createButton.textContent = "New Habit";
+  createButton.addEventListener("click", openHabitModal);
+
+  ////////////////////////////// Listing all the Habits
+  // An array of habits
+  const habits = await getAllHabits(data.id);
+  // Write a func which with create a card for each habit
+  const renderHabits = (habitData) => {
+    //Create
+
+    const card = document.createElement("div");
+    card.className = "habit-card";
+    card.setAttribute("id", `habit-card-${habitData.id}`);
+    card.addEventListener("click", (e) => {
+      openHabitInstance(e);
+    });
+    const symbol = document.createElement("img");
+    symbol.className = "habit-icon";
+
+    const textContainer = document.createElement("div");
+    textContainer.className = "habit-text-container";
+    const habitTitle = document.createElement("h3");
+    habitTitle.className = "habit-title";
+    habitTitle.textContent = habitData.habit_name;
+    const habitFreq = document.createElement("p");
+    habitFreq.className = "habit-freq";
+    habitFreq.textContent = `Repeat every ${habitData.frequency.days} days`;
+
+    //Append
+    textContainer.append(habitTitle, habitFreq);
+    card.append(symbol, textContainer);
+    header.append(title, createButton);
+    feed.append(card);
+  };
+
+  habits.forEach(renderHabits);
+  main.append(header, feed);
+}
+
+function openHabitModal(e) {
+  e.preventDefault();
+}
+
+// ========================= functionality of each habit
+
+async function openHabitInstance(e) {
+  const habitId = e.currentTarget.id.slice(-1);
+  console.log(habitId);
+
+  const r = await fetch(`${API_URL}/habit-instances/${habitId}`);
+  const instance = await r.json();
+  const p = await fetch(`${API_URL}/habits/${habitId}`);
+  const habit = await p.json();
+
+  renderHabitInstance(instance, habit);
+  // const response = await fetch(`${API_URL}/habit-instances/${habitId}`);
+  // const data = await response.json();
+  // console.log(data);
+
+  // renderHabitInstance()
+}
+
+// ========================= Create display for each habit
+
+function renderHabitInstance(instance, habit) {
+  console.log("hello from habit instance");
+  console.log(instance, habit);
+  // Modal setup
+  const userframe = document.querySelector("#instance-modal");
+  userframe.style.display = "block";
+  const habitModal = document.createElement("div");
+  habitModal.className = "modal";
+  // Header
+  const modalTitle = document.createElement("h2");
+  modalTitle.textContent = `Update ${habit.habit_name}`;
+
+  // complete div
+  const completeContainer = document.createElement("div");
+  completeContainer.className = "completeContainer";
+  const completeText = document.createElement("p");
+  completeText.className = "completeText";
+  completeText.textContent = `Check Off ${habit.habit_name}`;
+  const completeCheck = document.createElement("input");
+  completeCheck.className = "habit-checkbox";
+  completeCheck.setAttribute("type", "checkbox");
+  completeContainer.append(completeText, completeCheck);
+
+  // frequency
+  const frequencyContainer = document.createElement("div");
+  frequencyContainer.className = "frequencyContainer";
+  const frequencyText = document.createElement("p");
+  frequencyText.className = "frequencyText";
+  frequencyText.textContent = `Repeat habit every ${habit.frequency.days} days`;
+  const frequencyButton = document.createElement("button");
+  frequencyButton.className = "frequency-button btn";
+  frequencyButton.textContent = `Change`;
+  frequencyContainer.append(frequencyText, frequencyButton);
+
+  //Streak
+  const streakMsg = document.createElement("p");
+  streakMsg.textContent = `Your current streak is ...`;
+
+  // Buttons
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = "buttonContainer";
+  const buttonClose = document.createElement("button");
+  buttonClose.className = "button-close btn";
+  buttonClose.textContent = `Close`;
+  buttonClose.addEventListener("click", closeModal);
+  const buttonDelete = document.createElement("button");
+  buttonDelete.className = "button-delete btn";
+  buttonDelete.textContent = `Delete`;
+  buttonDelete.addEventListener("click", () => {
+    console.log("Delete button clicked");
+  });
+  buttonContainer.append(buttonClose, buttonDelete);
+
+  // Ovverlay
+  const overlay = document.createElement("div");
+  overlay.id = "modal-overlay";
+  document.body.appendChild(overlay);
+
+  habitModal.append(
+    modalTitle,
+    completeContainer,
+    frequencyContainer,
+    streakMsg,
+    buttonContainer
+  );
+  userframe.append(habitModal);
+}
+// Helper function --- Closing the modal of habit instance
+function closeModal() {
+  console.log("Close button clicked");
+  const userframe = document.querySelector("#instance-modal");
+  userframe.innerHTML = "";
+  userframe.style.display = "none";
+  document.body.removeChild(document.getElementById("modal-overlay"));
+}
+
 module.exports = {
   requestLogin,
   newUser,
