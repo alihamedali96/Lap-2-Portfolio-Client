@@ -188,7 +188,7 @@ function renderHabitInstance(instance, habit) {
   frequencyText.textContent = `Repeat habit every ${habit.frequency.days} days`;
   const frequencyButton = document.createElement("button");
   frequencyButton.className = "frequency-button btn";
-  frequencyButton.textContent = `Change Frequency`;
+  frequencyButton.textContent = `Change`;
   frequencyContainer.append(frequencyText, frequencyButton);
 
   //Streak
@@ -197,14 +197,14 @@ function renderHabitInstance(instance, habit) {
 
   // Buttons
   const buttonContainer = document.createElement("div");
-  buttonContainer.className = "ButtonContainer";
+  buttonContainer.className = "buttonContainer";
   const buttonClose = document.createElement("button");
-  buttonClose.className = "btn";
+  buttonClose.className = "button-close btn";
   buttonClose.textContent = `Close`;
   buttonClose.addEventListener("click", closeModal);
   const buttonDelete = document.createElement("button");
-  buttonDelete.className = "Button-button btn";
-  buttonDelete.textContent = `Change Button`;
+  buttonDelete.className = "button-delete btn";
+  buttonDelete.textContent = `Delete`;
   buttonDelete.addEventListener("click", () => {
     console.log("Delete button clicked");
   });

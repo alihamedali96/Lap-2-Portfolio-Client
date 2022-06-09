@@ -204,6 +204,75 @@ main .login-main {
   background-color: white;
   border: solid 1px #006ae8;
   z-index: 10;
+  width: 300px;
+  height: 400px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+  height: 100%;
+}
+
+.completeContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+  padding: 5px;
+}
+
+.frequencyContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  column-gap: 10px;
+  padding: 5px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-grow: 1;
+  align-items: flex-end;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.completeText {
+  align-self: flex-start;
+  margin-right: auto;
+}
+.modal > h2 {
+  text-align: center;
+}
+.modal > p {
+  padding: 5px;
+}
+.frequencyText {
+  flex: 1;
+}
+.habit-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 40px;
+}
+.frequency-button {
+  width: 100px;
+  height: 40px;
+}
+
+.button-close {
+  width: 80px;
+  height: 40px;
+}
+
+.button-delete {
+  width: 85px;
+  height: 40px;
+  background-color: rgb(241, 77, 77);
 }
 
 #modal-overlay {
