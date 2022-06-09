@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@600&family=Kadwa&family=Kreon:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@600&family=Kadwa&family=Kreon:wght@700&display=swap");
 
 *,
 *::before,
@@ -14,30 +14,33 @@
   --sh-color: #321d57;
   --dom-color: #5109d7;
   --subdom-color: #3d07a3;
-  --light-color: #734Bdd;
+  --light-color: #734bdd;
   --light-yellow: #ffe69c;
   --green-color: #1ed63e;
   --accent: #f5c025;
   --accent-warm: #f57c25;
 }
+body {
+  font-family: helvetica, sans-serif;
+}
 
-html, body {
+html,
+body {
   width: 100vw;
-  height:100vh;
+  height: 100vh;
   /* overflow:hidden; */
 }
 
 body {
-    background: var(--bg-color);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
+  background: var(--bg-color);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 /* *** Font Stuff *** */
 
-
-h1, h2 {
-  font-family: 'Baloo Paaji 2', cursive;
+h1,
+h2 {
+  font-family: "Baloo Paaji 2", cursive;
   line-height: 1;
 }
 body {
@@ -46,44 +49,48 @@ body {
   font-size: 1.1rem;
 }
 
-h1{
+h1 {
   font-size: 72px;
   text-transform: uppercase;
-  color: var(--accent)
+  color: var(--accent);
   /* gradient text, messes up text shadows
   background: -webkit-linear-gradient(var(--accent),var(--accent),var(--accent),var(--accent-warm),#fff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; 
   */
-  
 }
 
 h2 {
   font-size: 2.5rem;
 }
 h3 {
-  font-family: 'Kadwa', serif;
+  font-family: "Kadwa", serif;
 }
 
 label {
-  font-family: 'Kreon', serif;
+  font-family: "Kreon", serif;
 }
-h2{
-  color: var(--accent)
+h2 {
+  color: var(--accent);
 }
 
 .text-input {
-    font-family: 'Kreon', serif;
-    letter-spacing: 0.05em;
-    color:var(--dom-color);
-    font-size: 1.1rem;
-    }
+  font-family: "Kreon", serif;
+  letter-spacing: 0.05em;
+  color: var(--dom-color);
+  font-size: 1.1rem;
+}
 
 /* header */
 
 header {
-  background: linear-gradient(180deg,#3D07A3 0%,#4708BE 75%,var(--dom-color)100%);
+  background: linear-gradient(
+    180deg,
+    #3d07a3 0%,
+    #4708be 75%,
+    var(--dom-color) 100%
+  );
   display: flex;
   justify-content: center;
   align-items: center;
@@ -101,8 +108,39 @@ main {
   height: auto;
 }
 
+.main-frame {
+  margin-top: 7vh;
+  background-color: var(--subdom-color);
+
+  width: 95vw;
+  max-width: 550px;
+  border: 3px solid var(--light-color);
+  border-radius: 10px;
+  padding: 2rem;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.main-frame > h2,
+.main-frame > h3 {
+  flex-basis: 100%;
+  text-align: center;
+}
+.main-frame > h3 {
+  margin-bottom: 3rem;
+  font-size: 22px;
+}
+
+.main-frame > button {
+  height: 40px;
+  width: 110px;
+  justify-content: center;
+  margin: 1rem;
+}
+
 main .login-frame {
-  margin-top:7vh;
+  margin-top: 7vh;
   width: 65vw;
   max-width: 600px;
   background: var(--subdom-color);
@@ -113,7 +151,7 @@ main .login-frame {
 }
 
 main .login-header {
-  width:100%;
+  width: 100%;
   text-align: center;
   margin: 1rem 0;
 }
@@ -132,42 +170,45 @@ main .login-main {
 }
 
 .text-input {
-    padding: 1em .5em ;
-    height:1.75rem;
-    background: var(--light-yellow);
-    border:none;
-    border-radius:5px;
-    box-shadow: 3px 3px var(--sh-color);
-    caret-color: var(--dom-color);
+  padding: 1em 0.5em;
+  height: 1.75rem;
+  background: var(--light-yellow);
+  border: none;
+  border-radius: 5px;
+  box-shadow: 3px 3px var(--sh-color);
+  caret-color: var(--dom-color);
 }
 
-.text-input:focus{
- outline: solid 3px var(--light-color);
- }
+.text-input:focus {
+  outline: solid 3px var(--light-color);
+}
 
 #name-label {
+  padding: 0.5em 0.25em;
+  height: 1.75rem;
+}
+
+#username {
   grid-area: name-label;
 }
 
-#pass-label {
+#password {
   grid-area: pass-label;
 }
 
 #name-input {
-  width:100%;
+  width: 100%;
   justify-self: start;
   grid-area: name-row;
 }
 
 #pass-input {
-  width:100%;
+  width: 100%;
   justify-self: end;
   grid-area: pass-row;
-  margin-bottom:1.75rem;
-  
-
+  margin-bottom: 1.75rem;
 }
-.signup-btn {
+#login-back {
   justify-self: start;
   grid-area: signup-btn;
 }
@@ -176,17 +217,51 @@ main .login-main {
   grid-area: login-btn;
 }
 
+.signup-frame {
+  margin-top: 7vh;
+  width: 95vw;
+  max-width: 550px;
+  background: var(--subdom-color);
+  border: 3px solid var(--light-color);
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.signup-header {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.signup-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.label {
+  flex-basis: 40%;
+}
+.text-input {
+  flex-basis: 50%;
+}
+
+.signup-main > input {
+  margin: 5px;
+}
+.signup-main > label {
+  margin: 5px;
+}
+
 /* *** Button Styling *** */
 
-.btn-1{
+.btn-1 {
   background-color: var(--green-color);
   color: var(--bg-color);
 }
 
-.btn-2{
+.btn-2 {
   background-color: var(--light-color);
   color: var(--light-yellow);
-
 }
 
 .btn:hover {
@@ -210,25 +285,28 @@ main .login-main {
   box-shadow: var(--sh-color) 2px 2px 2px;
   box-sizing: border-box;
   cursor: pointer;
-  font-family: 'Baloo Paaji 2', serif;
+  font-family: "Baloo Paaji 2", serif;
   font-size: 110%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-shrink: 0;
   line-height: 1.15;
   margin: 0;
   padding: 10px 21px;
   text-align: center;
   text-transform: none;
-  transition: color .13s ease-in-out,background .13s ease-in-out,opacity .13s ease-in-out,box-shadow .13s ease-in-out;
+  transition: color 0.13s ease-in-out, background 0.13s ease-in-out,
+    opacity 0.13s ease-in-out, box-shadow 0.13s ease-in-out;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
 }
 
-
-@media only screen and (max-width: 720px){ 
-
-  main .login-frame{
-    margin:2vw;
-    width:95vw;
+@media only screen and (min-width: 720px) {
+  main .login-frame {
+    margin: 2vw;
+    width: 95vw;
   }
 
   main .login-main {
@@ -242,14 +320,15 @@ main .login-main {
       "pass-label"
       "pass-row"
       "login-btn"
-      "signup-btn"; 
+      "signup-btn";
   }
 
-  input, .btn{
+  input,
+  .btn {
     justify-self: center;
-    width:100%;
-    min-width:100%;
-    max-width:100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
   }
 
   .signup-btn {
@@ -258,4 +337,181 @@ main .login-main {
   .login-btn {
     grid-area: login-btn;
   }
+}
+
+#feed {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+.feed-title {
+  font-size: 48px;
+}
+.feed-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  row-gap: 15px;
+  margin-bottom: 30px;
+}
+#create-btn {
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.habit-card {
+  background: var(--subdom-color);
+  border: 2px solid var(--light-color);
+  padding: 15px;
+  display: flex;
+  height: 90px;
+  column-gap: 20px;
+  /* justify-content: space-between; */
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+}
+.habit-title {
+  font-size: 22px;
+}
+.habit-text {
+  font-size: 16px;
+}
+
+.habit-icon {
+  width: 40px;
+  height: 40px;
+}
+.habit-text-container > * {
+  padding: 4px;
+}
+
+.habit-reminder {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  width: 80px;
+  padding: 10px;
+  background-color: var(--green-color);
+  color: var(--sh-color);
+  border-radius: 15px;
+  text-shadow: none;
+}
+.habit-reminder:hover {
+  cursor: pointer;
+}
+#instance-modal {
+  display: none;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--subdom-color);
+  border: 3px solid var(--light-color);
+  z-index: 10;
+  width: 500px;
+  min-height: 300px;
+  max-height: 600px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+  height: 100%;
+}
+
+.completeContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  padding: 5px;
+  row-gap: 10px;
+}
+
+.completeContainer > div {
+  display: flex;
+  justify-content: space-around;
+}
+.completeContainer > div > p {
+  margin-right: auto;
+}
+.frequencyContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  column-gap: 10px;
+  padding: 5px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-grow: 1;
+  align-items: flex-end;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.completeText {
+  align-self: flex-start;
+  margin-right: auto;
+}
+.modal > h2 {
+  text-align: center;
+}
+.modal > p {
+  padding: 5px;
+}
+.frequencyText {
+  flex: 1;
+}
+.habit-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 40px;
+}
+.frequency-button {
+  width: 100px;
+  height: 40px;
+}
+
+.button-close {
+  width: 80px;
+  height: 40px;
+}
+
+.button-delete {
+  width: 85px;
+  height: 40px;
+  background-color: rgb(241, 77, 77);
+}
+.button-add {
+  width: 85px;
+  height: 40px;
+  background-color: rgb(85, 241, 77);
+}
+
+#modal-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background-color: black;
+  opacity: 0.5;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }
