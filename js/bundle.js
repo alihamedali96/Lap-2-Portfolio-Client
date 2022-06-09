@@ -162,7 +162,7 @@ function openHabitModal(e) {
   buttonAdd.setAttribute("type", "submit");
   buttonAdd.className = "button-Add btn";
   buttonAdd.textContent = `Add`;
-  buttonAdd.addEventListener("submit", addNewHabit);
+
   buttonContainer.append(buttonClose, buttonAdd);
 
   // frequency (specific)
@@ -176,9 +176,10 @@ function openHabitModal(e) {
   formInputName.setAttribute("type", "text");
   formInputName.setAttribute("required", " ");
   formInputName.class = "habit-name";
+  formInputName.name = "habit_name";
   const values = ["1", "2", "3", "4", "5", "6", "7"];
   const select = document.createElement("select");
-  select.name = "freq";
+  select.name = "frequency";
   select.id = "freq-day";
   for (const val of values) {
     const option = document.createElement("option");
@@ -187,15 +188,28 @@ function openHabitModal(e) {
     select.appendChild(option);
   }
 
-  formContainer.append(formLabelName, formInputName, formLabelFreq, select);
-  form.append(formContainer, buttonContainer);
+  formContainer.append(
+    formLabelName,
+    formInputName,
+    formLabelFreq,
+    select,
+    buttonContainer
+  );
+  form.addEventListener("submit", addNewHabit);
+  form.append(formContainer);
   habitModal.append(modalTitle, form);
   userframe.append(habitModal);
 }
 
 async function addNewHabit(e) {
   e.preventDefault();
-  console.log("add btn clicked");
+
+  const options = {
+    method: "POST",
+    headers: { "content-Type": "application/json" },
+    body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
+  };
+  console.log(options);
 }
 // ========================= functionality of each habit
 
