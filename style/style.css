@@ -302,7 +302,7 @@ main .login-main {
   -webkit-user-select: none;
   touch-action: manipulation;
 }
-
+/* 
 @media only screen and (min-width: 720px) {
   main .login-frame {
     margin: 2vw;
@@ -337,7 +337,7 @@ main .login-main {
   .login-btn {
     grid-area: login-btn;
   }
-}
+} */
 
 #feed {
   padding: 12px;
@@ -400,6 +400,7 @@ main .login-main {
   color: var(--sh-color);
   border-radius: 15px;
   text-shadow: none;
+  font-family: "Kreon", serif;
 }
 .habit-reminder:hover {
   cursor: pointer;
@@ -438,6 +439,7 @@ main .login-main {
 }
 
 .completeContainer > div {
+  width: 100%;
   display: flex;
   justify-content: space-around;
 }
@@ -491,11 +493,18 @@ main .login-main {
 .button-delete {
   width: 85px;
   height: 40px;
+  background-color: var(--accent);
+}
+.button-delete:hover {
   background-color: rgb(241, 77, 77);
+  cursor: pointer;
 }
 .button-add {
   width: 85px;
   height: 40px;
+  background-color: var(--accent);
+}
+button-add:hover {
   background-color: rgb(85, 241, 77);
 }
 
