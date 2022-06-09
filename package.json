@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "coverage": "jest --coverage",
+    "coverage": "jest --coverage --collectCoverageFrom='js/**/*.js'",
     "bundle": "browserify ./js/script.js > ./js/bundle.js",
     "dev": "concurrently \"watchify ./js/script.js -o ./js/bundle.js\" \"http-server\""
   },
