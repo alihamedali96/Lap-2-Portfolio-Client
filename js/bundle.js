@@ -1,5 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const API_URL = require("./url");
+const getAllHabits = require("./requests");
 
 async function requestLogin(e) {
   e.preventDefault(e);
@@ -15,6 +16,10 @@ async function requestLogin(e) {
     const response = await fetch(`${API_URL}/users/login`, options);
     const data = await response.json();
     console.log(data);
+    if (data.err) {
+      throw Error(data.err);
+    }
+    login(data);
   } catch (err) {
     console.log(err);
   }
@@ -66,17 +71,178 @@ function signupErr() {
   const errMsg = document.querySelector("#signupText");
   errMsg.textContent = "Please try a different username";
 }
+
+function login(data) {
+  localStorage.setItem("username", data.user);
+  renderfeed(data);
+}
+async function renderfeed(data) {
+  const mainframe = document.getElementById("mainframe");
+  while (mainframe.firstChild) {
+    mainframe.removeChild(mainframe.lastChild);
+  }
+  // resetMainFrame();
+  const main = document.querySelector("#userframe");
+  ////////////////////////////// Create Div with Create Button/Logoutbutton
+  const feed = document.createElement("div");
+  feed.id = "feed";
+  const header = document.createElement("div");
+  header.className = "feed-header";
+  const title = document.createElement("h1");
+  title.className = "feed-title";
+  title.textContent = `Welcome back ${data.name}!`;
+  const createButton = document.createElement("button");
+  createButton.className = "btn";
+  createButton.id = "create-btn";
+  createButton.textContent = "New Habit";
+  createButton.addEventListener("click", openHabitModal);
+
+  ////////////////////////////// Listing all the Habits
+  // An array of habits
+  const habits = await getAllHabits(data.id);
+  // Write a func which with create a card for each habit
+  const renderHabits = (habitData) => {
+    //Create
+
+    const card = document.createElement("div");
+    card.className = "habit-card";
+    card.setAttribute("id", `habit-card-${habitData.id}`);
+    card.addEventListener("click", (e) => {
+      openHabitInstance(e);
+    });
+    const symbol = document.createElement("img");
+    symbol.className = "habit-icon";
+
+    const textContainer = document.createElement("div");
+    textContainer.className = "habit-text-container";
+    const habitTitle = document.createElement("h3");
+    habitTitle.className = "habit-title";
+    habitTitle.textContent = habitData.habit_name;
+    const habitFreq = document.createElement("p");
+    habitFreq.className = "habit-freq";
+    habitFreq.textContent = `Repeat every ${habitData.frequency.days} days`;
+
+    //Append
+    textContainer.append(habitTitle, habitFreq);
+    card.append(symbol, textContainer);
+    header.append(title, createButton);
+    feed.append(card);
+  };
+
+  habits.forEach(renderHabits);
+  main.append(header, feed);
+}
+
+function openHabitModal(e) {
+  e.preventDefault();
+}
+
+// ========================= functionality of each habit
+
+async function openHabitInstance(e) {
+  const habitId = e.currentTarget.id.slice(-1);
+  console.log(habitId);
+
+  const r = await fetch(`${API_URL}/habit-instances/${habitId}`);
+  const instance = await r.json();
+  const p = await fetch(`${API_URL}/habits/${habitId}`);
+  const habit = await p.json();
+
+  renderHabitInstance(instance, habit);
+  // const response = await fetch(`${API_URL}/habit-instances/${habitId}`);
+  // const data = await response.json();
+  // console.log(data);
+
+  // renderHabitInstance()
+}
+
+// ========================= Create display for each habit
+
+function renderHabitInstance(instance, habit) {
+  console.log("hello from habit instance");
+  console.log(instance, habit);
+  // Modal setup
+  const userframe = document.querySelector("#instance-modal");
+  userframe.style.display = "block";
+  const habitModal = document.createElement("div");
+  habitModal.className = "modal";
+  // Header
+  const modalTitle = document.createElement("h2");
+  modalTitle.textContent = `Update ${habit.habit_name}`;
+
+  // complete div
+  const completeContainer = document.createElement("div");
+  completeContainer.className = "completeContainer";
+  const completeText = document.createElement("p");
+  completeText.className = "completeText";
+  completeText.textContent = `Check Off ${habit.habit_name}`;
+  const completeCheck = document.createElement("input");
+  completeCheck.className = "habit-checkbox";
+  completeCheck.setAttribute("type", "checkbox");
+  completeContainer.append(completeText, completeCheck);
+
+  // frequency
+  const frequencyContainer = document.createElement("div");
+  frequencyContainer.className = "frequencyContainer";
+  const frequencyText = document.createElement("p");
+  frequencyText.className = "frequencyText";
+  frequencyText.textContent = `Repeat habit every ${habit.frequency.days} days`;
+  const frequencyButton = document.createElement("button");
+  frequencyButton.className = "frequency-button btn";
+  frequencyButton.textContent = `Change Frequency`;
+  frequencyContainer.append(frequencyText, frequencyButton);
+
+  //Streak
+  const streakMsg = document.createElement("p");
+  streakMsg.textContent = `Your current streak is ...`;
+
+  // Buttons
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = "ButtonContainer";
+  const buttonClose = document.createElement("button");
+  buttonClose.className = "btn";
+  buttonClose.textContent = `Close`;
+  buttonClose.addEventListener("click", closeModal);
+  const buttonDelete = document.createElement("button");
+  buttonDelete.className = "Button-button btn";
+  buttonDelete.textContent = `Change Button`;
+  buttonDelete.addEventListener("click", () => {
+    console.log("Delete button clicked");
+  });
+  buttonContainer.append(buttonClose, buttonDelete);
+
+  // Ovverlay
+  const overlay = document.createElement("div");
+  overlay.id = "modal-overlay";
+  document.body.appendChild(overlay);
+
+  habitModal.append(
+    modalTitle,
+    completeContainer,
+    frequencyContainer,
+    streakMsg,
+    buttonContainer
+  );
+  userframe.append(habitModal);
+}
+// Helper function --- Closing the modal of habit instance
+function closeModal() {
+  console.log("Close button clicked");
+  const userframe = document.querySelector("#instance-modal");
+  userframe.innerHTML = "";
+  userframe.style.display = "none";
+  document.body.removeChild(document.getElementById("modal-overlay"));
+}
+
 module.exports = {
   requestLogin,
   newUser,
 };
 
-},{"./url":5}],2:[function(require,module,exports){
+},{"./requests":3,"./url":5}],2:[function(require,module,exports){
 const auth = require("./auth");
 const requestLogin = auth.requestLogin;
 const newUser = auth.newUser;
-
-const getAllHabits = require("./requests");
 
 const mainFrame = document.getElementById("mainframe");
 
@@ -416,63 +582,6 @@ function renderLogin() {
 
 // ==================================================================
 // render more stuff
-async function renderFeed(e) {
-  e.preventDefault();
-  resetMainFrame();
-  ////////////////////////////// Create Div with Create Button/Logoutbutton
-  const feed = document.createElement("div");
-  feed.id = "feed";
-  const header = document.createElement("div");
-  header.className = "feed-header";
-  const title = document.createElement("h1");
-  title.className = "feed-title";
-  title.textContent = `Welcome back ${localStorage.getItem("username")}!}`;
-  const createButton = document.createElement("button");
-  createButton.className = "btn";
-  createButton.id = "create-btn";
-  createButton.value = "New Habit";
-  createButton.addEventListener("click", openHabitModal);
-  console.log(feed, header, title, createButton);
-
-  ////////////////////////////// Listing all the Habits
-  // An array of habits
-  const habits = await getAllHabits();
-  // Write a func which with create a card for each habit
-  const renderHabits = (habitData) => {
-    //Create
-    const card = document.createElement("div");
-    card.className = "habit-card";
-    const symbol = document.createElement("img");
-    symbol.className = "habit-icon";
-    const textContainer = document.createElement("div");
-    textContainer.className = "habit-text-container";
-    const habitTitle = document.createElement("h3");
-    habitTitle.className = "habit-title";
-    habitTitle.textContent = habitData.habit_name;
-    const habitFreq = document.createElement("p");
-    habitFreq.className = "habit-freq";
-    habitFreq.textContent = habitData.frequency;
-    const habitCheck = document.createElement("input");
-    habitCheck.className = "habit-checkbox";
-    habitCheck.id = `habit-${habitData.id}`;
-    habitCheck.setAttribute("type", "checkbox");
-
-    //Append
-    textContainer.append(habitTitle, habitFreq);
-    card.append(symbol, textContainer, habitCheck);
-    header.append(title, createButton);
-    feed.append(header, card);
-  };
-
-  habits.forEach(renderHabits);
-  main.appendChild(feed);
-}
-const bypassBtn = document.getElementById("bypass");
-bypassBtn.addEventListener("click", renderFeed);
-
-function openHabitModal(e) {
-  e.preventDefault();
-}
 
 // Back button on either login/logout
 document.addEventListener("click", function (e) {
@@ -483,14 +592,18 @@ document.addEventListener("click", function (e) {
     renderHome();
   }
 });
-module.exports = { renderHome, renderSignup, renderLogin };
+module.exports = {
+  renderHome,
+  renderSignup,
+  renderLogin,
+};
 
-},{"./auth":1,"./requests":3}],3:[function(require,module,exports){
+},{"./auth":1}],3:[function(require,module,exports){
 const API_URL = require("./url");
 
-async function getAllHabits() {
+async function getAllHabits(id) {
   try {
-    const response = await fetch(`${API_URL}/habits`);
+    const response = await fetch(`${API_URL}/habits/user/${id}`);
     const data = await response.json();
     return data;
   } catch (err) {

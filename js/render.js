@@ -2,8 +2,6 @@ const auth = require("./auth");
 const requestLogin = auth.requestLogin;
 const newUser = auth.newUser;
 
-const getAllHabits = require("./requests");
-
 const mainFrame = document.getElementById("mainframe");
 
 // Reset hash and homepage content
@@ -342,63 +340,6 @@ function renderLogin() {
 
 // ==================================================================
 // render more stuff
-async function renderFeed(e) {
-  e.preventDefault();
-  resetMainFrame();
-  ////////////////////////////// Create Div with Create Button/Logoutbutton
-  const feed = document.createElement("div");
-  feed.id = "feed";
-  const header = document.createElement("div");
-  header.className = "feed-header";
-  const title = document.createElement("h1");
-  title.className = "feed-title";
-  title.textContent = `Welcome back ${localStorage.getItem("username")}!}`;
-  const createButton = document.createElement("button");
-  createButton.className = "btn";
-  createButton.id = "create-btn";
-  createButton.value = "New Habit";
-  createButton.addEventListener("click", openHabitModal);
-  console.log(feed, header, title, createButton);
-
-  ////////////////////////////// Listing all the Habits
-  // An array of habits
-  const habits = await getAllHabits();
-  // Write a func which with create a card for each habit
-  const renderHabits = (habitData) => {
-    //Create
-    const card = document.createElement("div");
-    card.className = "habit-card";
-    const symbol = document.createElement("img");
-    symbol.className = "habit-icon";
-    const textContainer = document.createElement("div");
-    textContainer.className = "habit-text-container";
-    const habitTitle = document.createElement("h3");
-    habitTitle.className = "habit-title";
-    habitTitle.textContent = habitData.habit_name;
-    const habitFreq = document.createElement("p");
-    habitFreq.className = "habit-freq";
-    habitFreq.textContent = habitData.frequency;
-    const habitCheck = document.createElement("input");
-    habitCheck.className = "habit-checkbox";
-    habitCheck.id = `habit-${habitData.id}`;
-    habitCheck.setAttribute("type", "checkbox");
-
-    //Append
-    textContainer.append(habitTitle, habitFreq);
-    card.append(symbol, textContainer, habitCheck);
-    header.append(title, createButton);
-    feed.append(header, card);
-  };
-
-  habits.forEach(renderHabits);
-  main.appendChild(feed);
-}
-const bypassBtn = document.getElementById("bypass");
-bypassBtn.addEventListener("click", renderFeed);
-
-function openHabitModal(e) {
-  e.preventDefault();
-}
 
 // Back button on either login/logout
 document.addEventListener("click", function (e) {
@@ -409,4 +350,8 @@ document.addEventListener("click", function (e) {
     renderHome();
   }
 });
-module.exports = { renderHome, renderSignup, renderLogin };
+module.exports = {
+  renderHome,
+  renderSignup,
+  renderLogin,
+};
