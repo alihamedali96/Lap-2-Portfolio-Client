@@ -134,8 +134,68 @@ async function renderfeed(data) {
 
 function openHabitModal(e) {
   e.preventDefault();
+  console.log("click");
+  // Overlay (export)
+  const overlay = document.createElement("div");
+  overlay.id = "modal-overlay";
+  document.body.appendChild(overlay);
+  // Setup container modal (export)
+  const userframe = document.querySelector("#instance-modal");
+  userframe.style.display = "block";
+  const habitModal = document.createElement("div");
+  habitModal.className = "modal";
+  const form = document.createElement("form");
+
+  // Header (export)
+  const modalTitle = document.createElement("h2");
+  modalTitle.textContent = `Create a New Habit`;
+
+  // buttons (some can be exported)
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = "buttonContainer";
+  const buttonClose = document.createElement("button");
+  buttonClose.className = "button-close btn";
+  buttonClose.textContent = `Close`;
+  buttonClose.addEventListener("click", closeModal);
+  const buttonAdd = document.createElement("input");
+  buttonAdd.setAttribute("type", "submit");
+  buttonAdd.className = "button-Add btn";
+  buttonAdd.textContent = `Add`;
+  buttonAdd.addEventListener("submit", addNewHabit);
+  buttonContainer.append(buttonClose, buttonAdd);
+
+  // frequency (specific)
+  const formContainer = document.createElement("div");
+  formContainer.className = "formContainer";
+  const formLabelName = document.createElement("label");
+  formLabelName.textContent = "Track a Habit";
+  const formLabelFreq = document.createElement("label");
+  formLabelFreq.textContent = "Repeat habit every:";
+  const formInputName = document.createElement("input");
+  formInputName.setAttribute("type", "text");
+  formInputName.setAttribute("required", " ");
+  formInputName.class = "habit-name";
+  const values = ["1", "2", "3", "4", "5", "6", "7"];
+  const select = document.createElement("select");
+  select.name = "freq";
+  select.id = "freq-day";
+  for (const val of values) {
+    const option = document.createElement("option");
+    option.value = val;
+    option.text = val;
+    select.appendChild(option);
+  }
+
+  formContainer.append(formLabelName, formInputName, formLabelFreq, select);
+  form.append(formContainer, buttonContainer);
+  habitModal.append(modalTitle, form);
+  userframe.append(habitModal);
 }
 
+async function addNewHabit(e) {
+  e.preventDefault();
+  console.log("add btn clicked");
+}
 // ========================= functionality of each habit
 
 async function openHabitInstance(e) {
@@ -174,14 +234,14 @@ function renderHabitInstance(instance, habit) {
   // complete div
   const completeContainer = document.createElement("div");
   completeContainer.className = "completeContainer";
-  for (i of instance){
+  for (i of instance) {
     const completeText = document.createElement("p");
     completeText.className = "completeText";
     completeText.textContent = `Check Off ${i.due_date}`;
     const completeCheck = document.createElement("input");
     completeCheck.className = "habit-checkbox";
     completeCheck.setAttribute("type", "checkbox");
-    const habitInstance = document.createElement("div")
+    const habitInstance = document.createElement("div");
     habitInstance.append(completeText, completeCheck);
     completeContainer.append(habitInstance);
   }

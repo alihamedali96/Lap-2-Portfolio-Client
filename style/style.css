@@ -274,6 +274,11 @@ main .login-main {
   height: 40px;
   background-color: rgb(241, 77, 77);
 }
+.button-add {
+  width: 85px;
+  height: 40px;
+  background-color: rgb(85, 241, 77);
+}
 
 #modal-overlay {
   width: 100%;
