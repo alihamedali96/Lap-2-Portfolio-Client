@@ -93,6 +93,7 @@ function renderSignup() {
         name: "name",
         placeholder: "Enter your name",
         class: "text-input",
+        required: " ",
       },
     },
     {
@@ -110,6 +111,7 @@ function renderSignup() {
         name: "username",
         placeholder: "Enter a username",
         class: "text-input",
+        required: " ",
       },
     },
     {
@@ -127,6 +129,7 @@ function renderSignup() {
         name: "email",
         placeholder: "Enter your email",
         class: "text-input",
+        required: " ",
       },
     },
     {
@@ -144,6 +147,7 @@ function renderSignup() {
         name: "password",
         placeholder: "Enter a password",
         class: "text-input",
+        required: " ",
       },
     },
     {
@@ -260,6 +264,7 @@ function renderLogin() {
         placeholder: "Enter a username",
         class: "text-input",
         id: "name-input",
+        required: " ",
       },
     },
     {
@@ -278,6 +283,7 @@ function renderLogin() {
         placeholder: "Enter a password",
         class: "text-input",
         id: "pass-input",
+        required: " ",
       },
     },
     {

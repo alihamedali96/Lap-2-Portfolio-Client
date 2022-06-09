@@ -161,6 +161,7 @@ main .login-main {
   color: #fff;
   cursor: pointer;
   display: flex;
+  justify-content: center;
   flex-direction: row;
   flex-shrink: 0;
   font-family: "RM Neue", sans-serif;
@@ -186,15 +187,57 @@ main .login-main {
 }
 
 #feed {
-  padding: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.feed-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  row-gap: 15px;
+  margin-bottom: 30px;
+}
+#create-btn {
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .habit-card {
   border: solid 1px black;
-  padding: 3px;
+  padding: 15px;
   display: flex;
+  height: 90px;
+  column-gap: 20px;
+  /* justify-content: space-between; */
+  align-items: center;
+  border-radius: 10px;
+}
+.habit-icon {
+  width: 30px;
+  height: 30px;
+}
+.habit-text-container > * {
+  padding: 6px;
 }
 
+.habit-reminder {
+  font-size: 12px;
+  text-align: center;
+  width: 80px;
+  padding: 10px;
+  background-color: #1c84ff;
+  color: white;
+  border-radius: 15px;
+}
+.habit-reminder:hover {
+  cursor: pointer;
+}
 #instance-modal {
   display: none;
   position: absolute;
@@ -205,7 +248,8 @@ main .login-main {
   border: solid 1px #006ae8;
   z-index: 10;
   width: 300px;
-  height: 400px;
+  min-height: 300px;
+  max-height: 600px;
   padding: 20px;
   border-radius: 10px;
 }
@@ -220,11 +264,20 @@ main .login-main {
 .completeContainer {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
   align-items: center;
   margin-top: 20px;
   padding: 5px;
+  row-gap: 10px;
 }
 
+.completeContainer > div {
+  display: flex;
+  justify-content: space-around;
+}
+.completeContainer > div > p {
+  margin-right: auto;
+}
 .frequencyContainer {
   display: flex;
   justify-content: space-around;
@@ -289,4 +342,10 @@ main .login-main {
   z-index: 0;
   background-color: black;
   opacity: 0.5;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }

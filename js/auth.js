@@ -85,6 +85,7 @@ async function renderfeed(data) {
   ////////////////////////////// Create Div with Create Button/Logoutbutton
   const feed = document.createElement("div");
   feed.id = "feed";
+
   const header = document.createElement("div");
   header.className = "feed-header";
   const title = document.createElement("h1");
@@ -111,7 +112,7 @@ async function renderfeed(data) {
     });
     const symbol = document.createElement("img");
     symbol.className = "habit-icon";
-
+    symbol.src = "../img/kang.png";
     const textContainer = document.createElement("div");
     textContainer.className = "habit-text-container";
     const habitTitle = document.createElement("h3");
@@ -120,10 +121,13 @@ async function renderfeed(data) {
     const habitFreq = document.createElement("p");
     habitFreq.className = "habit-freq";
     habitFreq.textContent = `Repeat every ${habitData.frequency.days} days`;
+    const msg = document.createElement("div");
+    msg.className = "habit-reminder";
+    msg.textContent = "Click For More";
 
     //Append
     textContainer.append(habitTitle, habitFreq);
-    card.append(symbol, textContainer);
+    card.append(symbol, textContainer, msg);
     header.append(title, createButton);
     feed.append(card);
   };
@@ -170,15 +174,17 @@ function openHabitModal(e) {
   const formLabelName = document.createElement("label");
   formLabelName.textContent = "Track a Habit";
   const formLabelFreq = document.createElement("label");
-  formLabelFreq.textContent = "Repeat habit every:";
+
   const formInputName = document.createElement("input");
   formInputName.setAttribute("type", "text");
   formInputName.setAttribute("required", " ");
-  formInputName.class = "habit-name";
+  formInputName.class = "text-input";
+  formInputName.placeholder = "e.g Running";
   formInputName.name = "habit_name";
   const values = ["1", "2", "3", "4", "5", "6", "7"];
   const select = document.createElement("select");
   select.name = "frequency";
+  select.className = "text-input";
   select.id = "freq-day";
   for (const val of values) {
     const option = document.createElement("option");
@@ -186,7 +192,7 @@ function openHabitModal(e) {
     option.text = val;
     select.appendChild(option);
   }
-
+  formLabelFreq.textContent = `Repeat habit every ${select.value} day(s)`;
   formContainer.append(
     formLabelName,
     formInputName,
@@ -208,7 +214,10 @@ async function addNewHabit(e) {
     headers: { "content-Type": "application/json" },
     body: JSON.stringify(Object.fromEntries(new FormData(e.target))),
   };
-  console.log(options);
+
+  const r = await fetch(`${API_URL}/habits/`, options);
+  const d = await r.json();
+  console.log(d);
 }
 // ========================= functionality of each habit
 
