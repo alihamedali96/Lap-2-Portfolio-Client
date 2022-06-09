@@ -8,6 +8,13 @@ describe("Render Testing", () => {
     document = await dom.window.document;
   }); 
 
+  describe('Tests script tag', () => {
+    it('it is deferred', () => {
+        script = document.querySelector('script');
+        expect(script.getAttribute('defer')).toEqual('');
+    })
+})
+
   describe("Render Home", () => {
     it("create mainframe div", () => {
       const element = document.querySelector("#mainFrame")
