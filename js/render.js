@@ -9,13 +9,11 @@ function resetMainFrame() {
   while (mainFrame.firstChild) {
     mainFrame.removeChild(mainFrame.lastChild);
   }
-  console.log("elements destroyed");
 }
 
 // ==================================================================
 // render Home page
 function renderHome() {
-  console.log("rendering home");
   resetMainFrame();
 
   /// Create Text Elements and layout
@@ -48,16 +46,7 @@ function renderHome() {
 // ==================================================================
 // make render login form
 function renderSignup() {
-  console.log("rendering signup page");
   resetMainFrame();
-  try {
-    if (form) {
-      console.log("form still exists", form);
-    }
-  } catch (err) {
-    console.error(err);
-  }
-  // window.location.hash = "register";
 
   const signupframe = document.createElement("div");
   signupframe.className = "signup-frame";
@@ -217,13 +206,11 @@ function renderSignup() {
   form.addEventListener("submit", newUser); // Adds newUser event to form onsubmit
   signupframe.appendChild(form);
   mainFrame.appendChild(signupframe);
-  console.log(console.log(document.querySelectorAll("form")));
 } // end of form
 
 // ==================================================================
 // make render reg form
 function renderLogin() {
-  console.log("rendering login page");
   resetMainFrame();
   // window.location.hash = "login";
 
@@ -335,7 +322,6 @@ function renderLogin() {
   form.addEventListener("submit", requestLogin); // Adds Event Listener for requestLogin
   loginframe.appendChild(form);
   mainFrame.appendChild(loginframe);
-  console.log(console.log(document.querySelectorAll("form")));
 } // end of form
 
 // ==================================================================
