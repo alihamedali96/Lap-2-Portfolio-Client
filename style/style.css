@@ -216,7 +216,14 @@ main .login-main {
   justify-self: end;
   grid-area: login-btn;
 }
-
+#signup-btn {
+  width: 85px;
+  height: 40px;
+}
+#signup-back {
+  width: 85px;
+  height: 40px;
+}
 .signup-frame {
   margin-top: 7vh;
   width: 95vw;

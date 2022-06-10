@@ -58,7 +58,7 @@ function renderSignup() {
   signupMain.className = "signup-main";
 
   const signupTitle = document.createElement("h2");
-  signupTitle.textContent = "It is your time to find a Roo-tine";
+  signupTitle.textContent = "It is your time to find a Roo-teen";
   signupTitle.id = "signupTitle";
   const signupText = document.createElement("h3");
   signupText.textContent = "Please fill in your details below";
@@ -228,7 +228,7 @@ function renderLogin() {
   loginMain.className = "login-main";
 
   const loginTitle = document.createElement("h2");
-  loginTitle.textContent = `Welcome back to your \n Roo-tine`;
+  loginTitle.textContent = `Welcome back to your \n Roo-teen`;
   const loginText = document.createElement("h3");
   loginText.textContent = "Please login in";
 
