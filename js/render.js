@@ -231,6 +231,7 @@ function renderLogin() {
   loginTitle.textContent = `Welcome back to your \n Roo-teen`;
   const loginText = document.createElement("h3");
   loginText.textContent = "Please login in";
+  loginText.id = "loginText";
 
   loginHeader.append(loginTitle, loginText);
   // Set up form with fields

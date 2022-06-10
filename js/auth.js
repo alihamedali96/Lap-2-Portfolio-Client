@@ -12,11 +12,12 @@ async function requestLogin(e) {
     clearInputs();
     const response = await fetch(`${API_URL}/users/login`, options);
     const data = await response.json();
-    if (data.err) {
-      throw Error(data.err);
-    }
+    // if (data.err) {
+    //   loginErr();
+    // }
     login(data);
   } catch (err) {
+    loginErr();
   }
 }
 
@@ -62,6 +63,11 @@ function signupErr() {
   header.textContent = "Username already exists";
   const errMsg = document.querySelector("#signupText");
   errMsg.textContent = "Please try a different username";
+}
+function loginErr() {
+  const errMsg = document.querySelector("#loginText");
+  errMsg.textContent =
+    "The password you entered is incorrect. Please try again.";
 }
 
 function login(data) {
